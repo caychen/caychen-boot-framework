@@ -1,4 +1,4 @@
-package com.caychen.common.config.jackson;
+package com.caychen.web.config.jackson;
 
 import org.springframework.context.annotation.Configuration;
 
