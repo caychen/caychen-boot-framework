@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class IdKeyGeneratorTest {
 
     @Test
-    public void testNextId(){
+    public void testNextId() {
         IdKeyGenerator idKeyGenerator = new IdKeyGenerator(1, 1);
         Long nextId = idKeyGenerator.nextId();
         System.out.println(nextId);

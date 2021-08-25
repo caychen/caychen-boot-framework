@@ -10,10 +10,10 @@ import cn.hutool.core.util.IdUtil;
  */
 public class IdKeyGenerator {
 
-    private Snowflake snowflake;
+    private final Snowflake snowflake;
 
     public IdKeyGenerator(long workerId, long datacenterId) {
-        this.snowflake = IdUtil.createSnowflake(workerId, datacenterId);
+        this.snowflake = IdUtil.getSnowflake(workerId, datacenterId);
     }
 
     public Long nextId() {
