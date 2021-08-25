@@ -6,7 +6,6 @@
         <artifactId>caychen-boot-parent</artifactId>
         <groupId>com.caychen</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../caychen-boot-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
