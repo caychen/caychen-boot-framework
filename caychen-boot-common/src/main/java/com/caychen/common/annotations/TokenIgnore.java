@@ -7,10 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * @Author: Caychen
- * @Date: 2020/3/30 10:19
- * @Describe:
+ * @Date: 2021/8/23 11:24
+ * @Description:
  */
-
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TokenIgnore {

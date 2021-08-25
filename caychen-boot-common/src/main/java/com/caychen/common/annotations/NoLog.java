@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * @Author: Caychen
- * @Date: 2020/5/12 16:11
- * @Describe: 过滤部分类或者方法不需要记录日志（现阶段只支持过滤类）
+ * @Date: 2021/8/24 11:24
+ * @Description:
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
