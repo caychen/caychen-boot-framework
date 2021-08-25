@@ -1,6 +1,7 @@
 package com.caychen.common.utils;
 
 
+import com.caychen.common.constant.HttpConstant;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,15 +23,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
-import org.apache.http.ssl.TrustStrategy;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import java.net.SocketTimeoutException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,8 +40,11 @@ import java.util.Set;
 public class HttpClientUtils {
 
     public static final int CONNECT_TIMEOUT = 10000;
+
     public static final int READ_TIMEOUT = 10000;
+
     public static final String CHARSET = "UTF-8";
+
     private static final HttpClient client;
 
     static {
@@ -57,10 +57,10 @@ public class HttpClientUtils {
     public static String postParameters(
             String url,
             String parameterStr)
-            throws ConnectTimeoutException, SocketTimeoutException, Exception {
+            throws Exception {
         return post(url,
                 parameterStr,
-                "application/x-www-form-urlencoded",
+                HttpConstant.FORM_URLENCODED,
                 CHARSET,
                 CONNECT_TIMEOUT,
                 READ_TIMEOUT);
@@ -72,17 +72,17 @@ public class HttpClientUtils {
             String charset,
             Integer connTimeout,
             Integer readTimeout)
-            throws ConnectTimeoutException, SocketTimeoutException, Exception {
+            throws Exception {
         return post(url,
                 parameterStr,
-                "application/x-www-form-urlencoded",
+                HttpConstant.FORM_URLENCODED,
                 charset,
                 connTimeout,
                 readTimeout);
     }
 
-    public static String postParameters(String url, Map<String, String> params) throws ConnectTimeoutException,
-            SocketTimeoutException, Exception {
+    public static String postParameters(String url, Map<String, String> params) throws
+            Exception {
         return postForm(url,
                 params,
                 null,
@@ -95,7 +95,7 @@ public class HttpClientUtils {
             Map<String, String> params,
             Integer connTimeout,
             Integer readTimeout)
-            throws ConnectTimeoutException, SocketTimeoutException, Exception {
+            throws Exception {
         return postForm(url,
                 params,
                 null,
@@ -122,7 +122,7 @@ public class HttpClientUtils {
      *
      * @param url
      * @param body        RequestBody
-     * @param mimeType    例如 application/xml "application/x-www-form-urlencoded" a=1&b=2&c=3
+     * @param mimeType    例如 application/xml MimeTypeConstant.FORM_URLENCODED a=1&b=2&c=3
      * @param charset     编码
      * @param connTimeout 建立链接超时时间,毫秒.
      * @param readTimeout 响应超时时间,毫秒.
@@ -194,7 +194,7 @@ public class HttpClientUtils {
             Map<String, String> params,
             Map<String, String> headers,
             Integer connTimeout,
-            Integer readTimeout) throws ConnectTimeoutException, SocketTimeoutException, Exception {
+            Integer readTimeout) throws Exception {
 
         HttpClient client = null;
         HttpPost post = new HttpPost(url);
@@ -224,7 +224,7 @@ public class HttpClientUtils {
             }
             post.setConfig(customReqConf.build());
             HttpResponse res = null;
-            if (url.startsWith("https")) {
+            if (url.startsWith(HttpConstant.HTTPS)) {
                 // 执行 Https 请求.
                 client = createSSLInsecureClient();
                 res = client.execute(post);
@@ -233,10 +233,11 @@ public class HttpClientUtils {
                 client = HttpClientUtils.client;
                 res = client.execute(post);
             }
-            return IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+            return IOUtils.toString(res.getEntity().getContent(), StandardCharsets.UTF_8);
         } finally {
             post.releaseConnection();
-            if (url.startsWith("https") && client != null
+            if (url.startsWith(HttpConstant.HTTPS)
+                    && client != null
                     && client instanceof CloseableHttpClient) {
                 ((CloseableHttpClient) client).close();
             }
@@ -256,8 +257,7 @@ public class HttpClientUtils {
      * @throws SocketTimeoutException  响应超时
      * @throws Exception
      */
-    public static String get(String url, String charset, Integer connTimeout, Integer readTimeout)
-            throws ConnectTimeoutException, SocketTimeoutException, Exception {
+    public static String get(String url, String charset, Integer connTimeout, Integer readTimeout) throws Exception {
 
         HttpClient client = null;
         HttpGet get = new HttpGet(url);
@@ -275,7 +275,7 @@ public class HttpClientUtils {
 
             HttpResponse res = null;
 
-            if (url.startsWith("https")) {
+            if (url.startsWith(HttpConstant.HTTPS)) {
                 // 执行 Https 请求.
                 client = createSSLInsecureClient();
                 res = client.execute(get);
@@ -288,7 +288,9 @@ public class HttpClientUtils {
             result = IOUtils.toString(res.getEntity().getContent(), charset);
         } finally {
             get.releaseConnection();
-            if (url.startsWith("https") && client != null && client instanceof CloseableHttpClient) {
+            if (url.startsWith(HttpConstant.HTTPS)
+                    && client != null
+                    && client instanceof CloseableHttpClient) {
                 ((CloseableHttpClient) client).close();
             }
         }
@@ -325,21 +327,14 @@ public class HttpClientUtils {
      */
     private static CloseableHttpClient createSSLInsecureClient() throws GeneralSecurityException {
         try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
-                @Override
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            }).build();
+            SSLContext sslContext =
+                    new SSLContextBuilder()
+                            .loadTrustMaterial(null,
+                                    (chain, authType) -> true
+                            )
+                            .build();
 
-            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
-
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-
-            });
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, (arg0, arg1) -> true);
 
             return HttpClients.custom().setSSLSocketFactory(sslsf).build();
 
@@ -353,7 +348,7 @@ public class HttpClientUtils {
             String str = post(
                     "https://localhost:443/ssl/test.shtml",
                     "name=12&page=34",
-                    "application/x-www-form-urlencoded",
+                    HttpConstant.FORM_URLENCODED,
                     "UTF-8",
                     10000,
                     10000);
