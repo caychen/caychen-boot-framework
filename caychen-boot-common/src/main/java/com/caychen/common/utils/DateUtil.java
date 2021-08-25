@@ -85,9 +85,32 @@ public class DateUtil {
      * @param end
      * @return Duration类型的时间差，可以通过toDays、toHours、toMinutes、etc...
      */
-    public static Duration diff(LocalDateTime start, LocalDateTime end) {
+    public static Duration between(LocalDateTime start, LocalDateTime end) {
         return Duration.between(start, end);
     }
+
+    /**
+     * 计算两个LocalDate的时间差
+     *
+     * @param start
+     * @param end
+     * @return Duration类型的时间差，可以通过toDays、toHours、toMinutes、etc...
+     */
+    public static Duration between(LocalDate start, LocalDate end) {
+        return Duration.between(start, end);
+    }
+
+    /**
+     * 计算两个Date的时间差
+     *
+     * @param start
+     * @param end
+     * @return Duration类型的时间差，可以通过toDays、toHours、toMinutes、etc...
+     */
+    public static Duration between(Date start, Date end) {
+        return Duration.between(asLocalDateTime(start), asLocalDateTime(end));
+    }
+
 
     /**
      * 格式化日期

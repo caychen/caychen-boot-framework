@@ -14,6 +14,7 @@ import java.util.Objects;
 public class R<T> {
 
     public static final Integer SUCCESS_CODE = 0;
+
     public static final String ERROR_MESSAGE = "error";
 
     private Integer code = SUCCESS_CODE;
@@ -91,6 +92,16 @@ public class R<T> {
         r.setCode(error.getCode());
         r.setMessage(error.getDesc());
         r.setExtMsg(extMsg);
+        return r;
+    }
+
+    public static <T> R result(Integer code, String message, T data, String extMsg) {
+        R r = new R();
+        r.setCode(code);
+        r.setData(data);
+        r.setMessage(message);
+        r.setExtMsg(extMsg);
+
         return r;
     }
 
