@@ -7,7 +7,9 @@ package com.caychen.common.constant;
  */
 public class HttpConstant {
 
-    public static final String FORM_URLENCODED = "application/x-www-form-urlencoded";
+    public static final String MIME_TYPE_APPLICATION_JOSN = "application/json";
+
+    public static final String MIME_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded";
 
     public static final String HTTP = "http";
 

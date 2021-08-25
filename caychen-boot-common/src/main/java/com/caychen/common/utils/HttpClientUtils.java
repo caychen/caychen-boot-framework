@@ -60,7 +60,7 @@ public class HttpClientUtils {
             throws Exception {
         return post(url,
                 parameterStr,
-                HttpConstant.FORM_URLENCODED,
+                HttpConstant.MIME_TYPE_FORM_URLENCODED,
                 CHARSET,
                 CONNECT_TIMEOUT,
                 READ_TIMEOUT);
@@ -75,7 +75,7 @@ public class HttpClientUtils {
             throws Exception {
         return post(url,
                 parameterStr,
-                HttpConstant.FORM_URLENCODED,
+                HttpConstant.MIME_TYPE_FORM_URLENCODED,
                 charset,
                 connTimeout,
                 readTimeout);
@@ -348,7 +348,7 @@ public class HttpClientUtils {
             String str = post(
                     "https://localhost:443/ssl/test.shtml",
                     "name=12&page=34",
-                    HttpConstant.FORM_URLENCODED,
+                    HttpConstant.MIME_TYPE_FORM_URLENCODED,
                     "UTF-8",
                     10000,
                     10000);
