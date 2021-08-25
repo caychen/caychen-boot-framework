@@ -2,8 +2,8 @@ package com.caychen.common.constant;
 
 /**
  * @Author: Caychen
- * @Date: 2020-05-01
- * @Describe:
+ * @Date: 2021/8/25 10:24
+ * @Description:
  */
 public class CommonConstant {
 
