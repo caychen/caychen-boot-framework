@@ -24,7 +24,7 @@ public class BusinessException extends RuntimeException {
 
     public BusinessException(ErrorEnum error, String... extMsg) {
         super(error.getDesc());
-        if(extMsg.length == 1) {
+        if (extMsg.length == 1) {
             this.extMsg = extMsg[0];
         }
         this.error = error;
