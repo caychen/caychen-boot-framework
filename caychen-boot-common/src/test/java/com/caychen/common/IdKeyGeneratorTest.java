@@ -1,7 +1,6 @@
 package com.caychen.common;
 
 import com.caychen.common.config.id.IdKeyGenerator;
-import com.caychen.common.utils.MD5;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -18,9 +17,5 @@ public class IdKeyGeneratorTest {
         System.out.println(nextId);
     }
 
-    @Test
-    public void testEncrypt(){
-        String encrypt = MD5.encrypt("caychen");
-        System.out.println(encrypt);
-    }
+
 }
