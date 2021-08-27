@@ -45,6 +45,7 @@ public enum ErrorEnum {
     FILE_NAME_MUST_BE_NOT_NULL(600026, "文件名称不可为空"),
     FILE_CAN_NOT_EXCEED_100MB(600026, "文件不可超过100M"),
     CALL_LINUX_SHELL_COMMAND_ERROR(600027, "调用Linux命令异常"),
+    COS_KEY_ERROR(600028,"腾讯云文件上传失败"),
 
     ;
 

@@ -15,6 +15,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return UUID.randomUUID().toString();
     }
 
+    public static String getUUIDWithReplaceBySpace() {
+        return getUUIDWithoutReplace().replace(SymbolConstant.HYPHEN, StringUtils.EMPTY);
+    }
+
     public static String getUUIDWithReplace(String replacement) {
         return getUUIDWithoutReplace().replace(SymbolConstant.HYPHEN, replacement);
     }

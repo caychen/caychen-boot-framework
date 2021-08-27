@@ -25,6 +25,7 @@ public class DateConstant {
     public static final String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     public static final String YYYYMMDDHHMMSSSSS = "yyyyMMddHHmmssSSS";
     public static final String YYYY_MM_DD_CHINESS = "yyyy年MM月dd日";
+    public static final String YYYY_MM_DD_SLASH = "yyyy/MM/dd";
 
     public static final String[] COMMON_DATE_FORMATS = {
             YYYY,
@@ -39,6 +40,7 @@ public class DateConstant {
             YYYYMMDDHHMM,
             YYYYMMDDHHMMSS,
             YYYYMMDDHHMMSSSSS,
-            YYYY_MM_DD_CHINESS
+            YYYY_MM_DD_CHINESS,
+            YYYY_MM_DD_SLASH
     };
 }
