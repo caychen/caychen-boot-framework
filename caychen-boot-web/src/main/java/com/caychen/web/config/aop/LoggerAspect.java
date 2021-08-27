@@ -136,7 +136,7 @@ public class LoggerAspect {
             if (e instanceof BusinessException) {
                 BusinessException businessException = (BusinessException) e;
                 if (businessException.getError() != null) {
-                    return R.error(businessException.getError(), null);
+                    return R.error(businessException.getError(), businessException.getExtMsg());
                 } else {
                     return R.error(ErrorEnum.UNKNOWN_ERROR, businessException.getMessage());
                 }
