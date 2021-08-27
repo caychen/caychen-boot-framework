@@ -1,6 +1,7 @@
 package com.caychen.common.utils;
 
 
+import com.caychen.common.constant.SymbolConstant;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.http.Consts;
@@ -23,7 +24,6 @@ import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -95,11 +95,11 @@ public class SimpleHttpClient {
             boolean isFirst = true;
             for (String key : param.keySet()) {
                 if (isFirst) {
-                    url.append("?");
+                    url.append(SymbolConstant.QUESTION);
                 } else {
-                    url.append("&");
+                    url.append(SymbolConstant.AND);
                 }
-                url.append(key).append("=").append(param.get(key));
+                url.append(key).append(SymbolConstant.EQUAL_SIGN).append(param.get(key));
             }
             this.url = url.toString();
         }
@@ -164,7 +164,7 @@ public class SimpleHttpClient {
         return statusCode;
     }
 
-    public String getContent() throws ParseException, IOException {
+    public String getContent() {
         return content;
     }
 

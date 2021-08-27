@@ -1,5 +1,7 @@
 package com.caychen.common.utils;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
 import com.caychen.common.constant.DateConstant;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -20,13 +24,35 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    public static Date minDateTime(Date date) {
+        return new DateTime(date)
+                .setField(DateField.HOUR_OF_DAY, 0)
+                .setField(DateField.MINUTE, 0)
+                .setField(DateField.SECOND, 0)
+                .setField(DateField.MILLISECOND, 0)
+                .toJdkDate();
+    }
+
+    public static Date maxDateTime(Date date) {
+        return new DateTime(date)
+                .setField(DateField.HOUR_OF_DAY, 23)
+                .setField(DateField.MINUTE, 59)
+                .setField(DateField.SECOND, 59)
+                .setField(DateField.MILLISECOND, 0)
+                .toJdkDate();
+    }
+
     /**
      * 获取当天最小时间，返回值格式：yyyy-MM-dd HH:mm:ss
      *
      * @return
      */
-    public static LocalDateTime minTime() {
-        return LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+    public static LocalDateTime minTime(Date date) {
+        if (date == null) {
+            return LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+        } else {
+            return asLocalDateTime(minDateTime(date));
+        }
     }
 
     /**
@@ -34,8 +60,12 @@ public class DateUtil {
      *
      * @return
      */
-    public static LocalDateTime maxTime() {
-        return LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+    public static LocalDateTime maxTime(Date date) {
+        if (date == null) {
+            return LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        } else {
+            return asLocalDateTime(maxDateTime(date));
+        }
     }
 
     /**
@@ -111,6 +141,29 @@ public class DateUtil {
         return Duration.between(asLocalDateTime(start), asLocalDateTime(end));
     }
 
+    /**
+     * format Date
+     *
+     * @param timestamp 毫秒
+     * @param pattern   格式
+     * @return
+     */
+    public static String formatDate(long timestamp, String pattern) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.systemDefault());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        return localDateTime.format(dateTimeFormatter);
+    }
+
+    /**
+     * 格式化日期
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDate(Long date, String pattern) {
+        return formatDate(new Date(date), pattern);
+    }
 
     /**
      * 格式化日期
@@ -135,4 +188,5 @@ public class DateUtil {
         }
         return null;
     }
+
 }

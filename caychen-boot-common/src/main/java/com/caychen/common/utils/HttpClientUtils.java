@@ -1,6 +1,7 @@
 package com.caychen.common.utils;
 
 
+import com.caychen.common.constant.CommonConstant;
 import com.caychen.common.constant.HttpConstant;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
@@ -43,8 +44,6 @@ public class HttpClientUtils {
 
     public static final int READ_TIMEOUT = 10000;
 
-    public static final String CHARSET = "UTF-8";
-
     private static final HttpClient client;
 
     static {
@@ -61,7 +60,7 @@ public class HttpClientUtils {
         return post(url,
                 parameterStr,
                 HttpConstant.MIME_TYPE_FORM_URLENCODED,
-                CHARSET,
+                CommonConstant.DEFAULT_CHARSET,
                 CONNECT_TIMEOUT,
                 READ_TIMEOUT);
     }
@@ -105,7 +104,7 @@ public class HttpClientUtils {
 
     public static String get(String url) throws Exception {
         return get(url,
-                CHARSET,
+                CommonConstant.DEFAULT_CHARSET,
                 null,
                 null);
     }
