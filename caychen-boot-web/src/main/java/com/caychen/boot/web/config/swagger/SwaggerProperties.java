@@ -14,7 +14,7 @@ public class SwaggerProperties {
 
     private String version = "v1.0.0";
 
-    private String basePackage = "com.caychen";
+    private String basePackage = "com.caychen.boot";
 
     private String paths;
 
