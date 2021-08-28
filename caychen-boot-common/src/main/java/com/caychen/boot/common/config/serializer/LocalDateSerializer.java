@@ -25,7 +25,7 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
      */
     @Override
     public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        String dateString = DateUtil.formatLocalDate(value, DateConstant.DEFAULT_DATE_TIME_FORMAT);
+        String dateString = DateUtil.formatLocalDate(value, DateConstant.DEFAULT_DATE_FORMAT);
         gen.writeString(dateString);
     }
 }

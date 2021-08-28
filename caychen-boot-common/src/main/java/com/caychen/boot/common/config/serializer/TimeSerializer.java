@@ -14,7 +14,7 @@ import java.util.Date;
  * @Date: 2021/8/28 11:17
  * @Description:
  */
-public class DateSerializer extends JsonSerializer<Date> {
+public class TimeSerializer extends JsonSerializer<Date> {
 
     /**
      * json(jackson)序列化时将Date类型序列化成String类型
@@ -25,7 +25,7 @@ public class DateSerializer extends JsonSerializer<Date> {
      */
     @Override
     public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        String dateString = DateUtil.formatDate(value, DateConstant.DEFAULT_DATE_FORMAT);
+        String dateString = DateUtil.formatDate(value, DateConstant.DEFAULT_TIME_FORMAT);
         gen.writeString(dateString);
     }
 }
