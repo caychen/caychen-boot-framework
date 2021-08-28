@@ -5,12 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.caychen</groupId>
+        <groupId>com.caychen.boot</groupId>
         <artifactId>caychen-boot-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.caychen</groupId>
     <artifactId>caychen-boot-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 

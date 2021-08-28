@@ -5,12 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.caychen</groupId>
+        <groupId>com.caychen.boot</groupId>
         <artifactId>caychen-boot-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.caychen</groupId>
     <artifactId>caychen-boot-file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -28,7 +27,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.caychen</groupId>
+            <groupId>com.caychen.boot</groupId>
             <artifactId>caychen-boot-web</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

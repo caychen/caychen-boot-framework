@@ -2,14 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>caychen-boot-parent</artifactId>
-        <groupId>com.caychen</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>caychen-boot-parent</artifactId>
+        <groupId>com.caychen.boot</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
     <artifactId>caychen-boot-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
     </properties>
@@ -44,7 +46,7 @@
 
 
         <dependency>
-            <groupId>com.caychen</groupId>
+            <groupId>com.caychen.boot</groupId>
             <artifactId>caychen-boot-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
