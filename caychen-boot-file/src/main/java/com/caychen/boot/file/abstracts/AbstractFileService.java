@@ -6,6 +6,7 @@ import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;
 import com.caychen.boot.common.utils.DateUtil;
 import com.caychen.boot.common.utils.StringUtils;
+import com.caychen.boot.common.utils.UUIDUtil;
 import com.caychen.boot.file.IFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public abstract class AbstractFileService implements IFileService {
         //获取文件名称
         String fileName = file.getOriginalFilename();
 
-        String uuid = StringUtils.getUUIDWithReplaceBySpace();
+        String uuid = UUIDUtil.getUUIDWithReplaceBySpace();
 
         String datePath = DateUtil.formatDate(new Date(), DateConstant.YYYY_MM_DD_SLASH);
         String path = prefix + SymbolConstant.SLASH + datePath;
