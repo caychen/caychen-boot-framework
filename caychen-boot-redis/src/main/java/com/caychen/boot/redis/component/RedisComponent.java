@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
@@ -27,12 +28,15 @@ public class RedisComponent {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     public Boolean isExists(String key) {
         return redisTemplate.hasKey(key);
     }
 
     public Long ttl(String key) {
-        return redisTemplate.getExpire(key);
+        return stringRedisTemplate.getExpire(key);
     }
 
     public void set(String key, Object value) {
@@ -43,12 +47,12 @@ public class RedisComponent {
         return redisTemplate.opsForValue().get(key);
     }
 
-    public void delKey(String key) {
-        redisTemplate.delete(key);
+    public Boolean delKey(String key) {
+        return stringRedisTemplate.delete(key);
     }
 
-    public void delKeys(Collection keys) {
-        redisTemplate.delete(keys);
+    public Long delKeys(Collection keys) {
+        return stringRedisTemplate.delete(keys);
     }
 
     public <T> T get(String key, Class<T> clazz) {
@@ -92,9 +96,13 @@ public class RedisComponent {
      *
      * @return
      */
-    public Boolean lock(String lockKey, String requestId, Long expire, TimeUnit timeUnit) {
+    public Boolean tryLock(String lockKey, String requestId, Long expire, TimeUnit timeUnit, Integer retryCount) {
         Boolean locked = false;
-        int tryCount = 3;
+        if (retryCount == null || retryCount < 0) {
+            retryCount = 1;
+        }
+
+        int tryCount = retryCount;
         while (!locked && tryCount > 0) {
             locked = redisTemplate.opsForValue().setIfAbsent(lockKey, requestId, expire, timeUnit);
             tryCount--;
