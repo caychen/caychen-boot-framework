@@ -5,6 +5,7 @@ import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;
 import com.caychen.boot.file.abstracts.AbstractFileService;
 import com.caychen.boot.file.config.OssProperties;
+import com.caychen.boot.file.enums.FileStoreTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class AlibabaFileServiceImpl extends AbstractFileService {
 
     @Override
     public String fileType() {
-        return "OSS";
+        return FileStoreTypeEnum.OSS.name();
     }
 
     @Override

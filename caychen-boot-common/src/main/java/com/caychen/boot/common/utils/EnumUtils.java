@@ -1,5 +1,8 @@
 package com.caychen.boot.common.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -22,6 +25,22 @@ public abstract class EnumUtils {
                 })
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static <T> Boolean isSupport(Class<T> enumClass, String name) {
+        return Objects.nonNull(Stream.of(enumClass.getEnumConstants()).filter(enumObj -> {
+            String enumName = null;
+            try {
+                enumName = (String) enumClass.getMethod("name").invoke(enumObj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return StringUtils.equalsIgnoreCase(enumName, name);
+        })
+                .findFirst()
+                .orElse(null)
+        );
+
     }
 
 }

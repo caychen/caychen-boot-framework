@@ -4,6 +4,7 @@ import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;
 import com.caychen.boot.file.abstracts.AbstractFileService;
 import com.caychen.boot.file.config.CosProperties;
+import com.caychen.boot.file.enums.FileStoreTypeEnum;
 import com.qcloud.cos.COSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class TencentFileServiceImpl extends AbstractFileService {
 
     @Override
     public String fileType() {
-        return "COS";
+        return FileStoreTypeEnum.COS.name();
     }
 
     @Override

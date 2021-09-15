@@ -1,7 +1,10 @@
 package com.caychen.boot.file.factory;
 
+import com.caychen.boot.common.utils.EnumUtils;
 import com.caychen.boot.file.abstracts.AbstractFileService;
+import com.caychen.boot.file.enums.FileStoreTypeEnum;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,10 +25,14 @@ public class FileUploadServiceFactory {
 
     public FileUploadServiceFactory(@Autowired List<AbstractFileService> fileServiceList) {
         fileServiceList.stream().forEach(fileService ->
-                map.put(fileService.fileType(), fileService));
+                map.put(StringUtils.upperCase(fileService.fileType()), fileService));
     }
 
     public static AbstractFileService fileService(String fileType) {
-        return map.get(fileType);
+        Boolean support = EnumUtils.isSupport(FileStoreTypeEnum.class, fileType);
+        if (!support) {
+            throw new RuntimeException("不支持的类型：[" + fileType + "]");
+        }
+        return map.get(StringUtils.upperCase(fileType));
     }
 }
