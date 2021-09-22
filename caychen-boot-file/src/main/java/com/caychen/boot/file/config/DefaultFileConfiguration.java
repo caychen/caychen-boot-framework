@@ -23,7 +23,7 @@ public class DefaultFileConfiguration {
     @DependsOn(value = FileUploadServiceFactory.FILEUPLOADSERVICEFACTORY_BEAN_NAME)
     public DefaultFileServiceSupport defaultFileServiceSupport() {
         if (StringUtils.isBlank(fileType)) {
-            throw new RuntimeException("文件服务器不能为空");
+            throw new RuntimeException("文件服务器类型不能为空");
         }
         return new DefaultFileServiceSupport(FileUploadServiceFactory.fileService(fileType));
     }
