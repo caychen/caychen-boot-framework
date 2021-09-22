@@ -2,8 +2,6 @@ package com.caychen.boot.file.abstracts;
 
 import com.caychen.boot.common.constant.DateConstant;
 import com.caychen.boot.common.constant.SymbolConstant;
-import com.caychen.boot.common.enums.ErrorEnum;
-import com.caychen.boot.common.exception.BusinessException;
 import com.caychen.boot.common.utils.DateUtil;
 import com.caychen.boot.common.utils.StringUtils;
 import com.caychen.boot.common.utils.UUIDUtil;
@@ -29,9 +27,9 @@ public abstract class AbstractFileService implements IFileService {
 
     @Override
     public String uploadFile(String prefix, MultipartFile file) throws IOException {
-        if (StringUtils.startsWith(prefix, SymbolConstant.SLASH)) {
-            throw new BusinessException(ErrorEnum.FILE_UPLOAD_ERROR, "prefix不能以斜杠开头");
-        }
+
+
+        prefix = filterInvalidSymbol(prefix);
 
         //获取文件名称
         String fileName = file.getOriginalFilename();
@@ -40,6 +38,12 @@ public abstract class AbstractFileService implements IFileService {
 
         String datePath = DateUtil.formatDate(new Date(), DateConstant.YYYY_MM_DD_SLASH);
         String path = prefix + SymbolConstant.SLASH + datePath;
+
+        if (StringUtils.startsWith(path, SymbolConstant.SLASH)) {
+            //防止prefix是个空串
+            path = StringUtils.substring(path, 1);
+        }
+
         log.info("文件路径为：[{}]", path);
 
         String tmpPath = path + SymbolConstant.SLASH + uuid;
@@ -62,5 +66,20 @@ public abstract class AbstractFileService implements IFileService {
             uploadFile.delete();
         }
         return url;
+    }
+
+    private String filterInvalidSymbol(String prefix) {
+        //去除两边多余的空格
+        prefix = StringUtils.trim(prefix);
+
+        //去除两边多余的斜杠
+        prefix = prefix
+                .replaceAll("^/*", "")
+                .replaceAll("/*$", "");
+
+        //再去除两边多余的空格
+        prefix = StringUtils.trim(prefix);
+
+        return prefix;
     }
 }
