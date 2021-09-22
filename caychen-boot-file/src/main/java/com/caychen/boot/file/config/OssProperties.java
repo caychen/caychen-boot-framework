@@ -19,4 +19,6 @@ public class OssProperties {
     private String keySecret;
 
     private String bucket;
+
+    private String callbackUrl;
 }
