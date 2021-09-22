@@ -28,7 +28,6 @@ public abstract class AbstractFileService implements IFileService {
     @Override
     public String uploadFile(String prefix, MultipartFile file) throws IOException {
 
-
         prefix = filterInvalidSymbol(prefix);
 
         //获取文件名称
@@ -51,21 +50,26 @@ public abstract class AbstractFileService implements IFileService {
         file.transferTo(uploadFile);
 
         String filepath = path + SymbolConstant.SLASH + uuid + fileName;
-        //抽象方法
-        String url = this.fileUpload(filepath, uploadFile);
+        try {
+            //抽象方法
+            String url = this.fileUpload(filepath, uploadFile);
 
-        //切割，把sign去掉
-        if (url.indexOf(SymbolConstant.QUESTION) != -1) {
-            url = url.split("[?]")[0];
+            //切割，把sign去掉
+            if (url.indexOf(SymbolConstant.QUESTION) != -1) {
+                url = url.split("[?]")[0];
+            }
+
+            //http替换成https
+            url = url.replaceFirst("http://", "https://");
+
+            if (uploadFile != null) {
+                uploadFile.delete();
+            }
+            return url;
+        } catch (Exception e) {
+            log.error("上传失败：", e);
+            throw e;
         }
-
-        //http替换成https
-        url = url.replaceFirst("http://", "https://");
-
-        if (uploadFile != null) {
-            uploadFile.delete();
-        }
-        return url;
     }
 
     private String filterInvalidSymbol(String prefix) {
@@ -77,8 +81,11 @@ public abstract class AbstractFileService implements IFileService {
                 .replaceAll("^/*", "")
                 .replaceAll("/*$", "");
 
-        //再去除两边多余的空格
-        prefix = StringUtils.trim(prefix);
+        //自动去除之后，还是以斜杠开头或者结尾，则自动报错
+        if (StringUtils.startsWith(prefix, SymbolConstant.SLASH)
+                || StringUtils.endsWith(prefix, SymbolConstant.SLASH)) {
+            throw new RuntimeException("不能以斜杠开头或者结尾");
+        }
 
         return prefix;
     }
