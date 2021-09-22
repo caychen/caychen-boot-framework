@@ -14,7 +14,7 @@ import org.springframework.context.annotation.DependsOn;
  * @Description:
  */
 @Configuration
-public class FileConfiguration {
+public class DefaultFileConfiguration {
 
     @Value("${file.upload.type}")
     private String fileType;
