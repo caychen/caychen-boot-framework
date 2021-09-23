@@ -40,7 +40,7 @@ public class OssPolicyController {
     @Autowired(required = false)
     private OSS ossClient;
 
-    @Value("${file.path.prefix:dev}")
+    @Value("${file.upload.path-prefix}")
     private String prefix;
 
     /**
