@@ -52,6 +52,9 @@
         <cos-api.version>5.6.52</cos-api.version>
         <aliyun-sdk-oss.version>3.13.1</aliyun-sdk-oss.version>
         <aliyun-java-sdk-dysmsapi.version>2.1.0</aliyun-java-sdk-dysmsapi.version>
+        <redisson-spring-boot.version>3.14.1</redisson-spring-boot.version>
+        <spring-cloud-starter-alicloud-oss.verions>2.2.0.RELEASE</spring-cloud-starter-alicloud-oss.verions>
+        <jjwt.version>0.9.1</jjwt.version>
 
     </properties>
 
@@ -339,6 +342,7 @@
                 <artifactId>prefixmapper</artifactId>
                 <version>${libphonenumber-prefixmapper.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.googlecode.libphonenumber</groupId>
                 <artifactId>carrier</artifactId>
@@ -365,6 +369,28 @@
                 <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
                 <version>${aliyun-java-sdk-dysmsapi.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson-spring-boot.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alicloud-oss -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+                <version>${spring-cloud-starter-alicloud-oss.verions}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
