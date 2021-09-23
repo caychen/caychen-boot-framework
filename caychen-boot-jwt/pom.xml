@@ -13,4 +13,38 @@
     <artifactId>caychen-boot-jwt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <jaxb.version>2.3.0</jaxb.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.caychen.boot</groupId>
+            <artifactId>caychen-boot-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
