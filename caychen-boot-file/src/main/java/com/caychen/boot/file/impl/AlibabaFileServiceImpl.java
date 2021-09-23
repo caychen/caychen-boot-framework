@@ -39,7 +39,7 @@ public class AlibabaFileServiceImpl extends AbstractFileService {
             this.ossClient.putObject(ossProperties.getBucket(), fileKey, file);
             return this.getUrl(ossProperties.getBucket(), fileKey);
         } else {
-            throw new BusinessException(ErrorEnum.COS_KEY_ERROR);
+            throw new BusinessException(ErrorEnum.FILE_UPLOAD_ERROR);
         }
     }
 

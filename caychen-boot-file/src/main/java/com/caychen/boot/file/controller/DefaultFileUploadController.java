@@ -2,6 +2,8 @@ package com.caychen.boot.file.controller;
 
 import com.caychen.boot.common.response.R;
 import com.caychen.boot.file.support.DefaultFileServiceSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,7 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping("/v1/file")
 @RestController
+@Api(tags = "文件服务控制器")
 public class DefaultFileUploadController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class DefaultFileUploadController {
     @Value("${file.upload.path-prefix}")
     private String prefix;
 
+    @ApiOperation("默认的文件上传接口")
     @PostMapping("/upload")
     public R<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         return R.ok(fileService.uploadFile(prefix, file));

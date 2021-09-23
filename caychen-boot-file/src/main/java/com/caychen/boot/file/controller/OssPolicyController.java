@@ -11,6 +11,8 @@ import com.caychen.boot.common.exception.BusinessException;
 import com.caychen.boot.common.response.R;
 import com.caychen.boot.file.config.OssProperties;
 import com.google.common.collect.Maps;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,9 @@ import java.util.Map;
  * @Description: 签名直传服务以及上传回调服务
  */
 @Slf4j
-@RequestMapping("/v1")
+@RequestMapping("/v1/oss")
 @RestController
+@Api(tags = "签名直传控制器")
 public class OssPolicyController {
 
     @Autowired(required = false)
@@ -48,7 +51,8 @@ public class OssPolicyController {
      *
      * @return
      */
-    @GetMapping("/oss/policy")
+    @ApiOperation("签名直传服务以及上传回调接口（获取Policy）")
+    @GetMapping("/policy")
     public R<Map<String, String>> policy() {
         if (StringUtils.startsWith(prefix, SymbolConstant.SLASH)) {
             throw new BusinessException(ErrorEnum.FILE_UPLOAD_ERROR, "prefix不能以斜杠开头");
