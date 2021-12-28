@@ -39,7 +39,7 @@ public class TencentFileServiceImpl extends AbstractFileService {
             this.cosClient.putObject(cosConfig.getBucket(), fileKey, inputStream);
             return this.getUrl(cosConfig.getBucket(), fileKey);
         } else {
-            throw new BusinessException(ErrorEnum.COS_KEY_ERROR);
+            throw new BusinessException(ErrorEnum.FILE_UPLOAD_ERROR);
         }
     }
 

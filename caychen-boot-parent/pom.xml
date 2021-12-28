@@ -35,6 +35,7 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-math3.version>3.6.1</commons-math3.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
         <poi.version>5.0.0</poi.version>
         <poi-ooxml.version>5.0.0</poi-ooxml.version>
         <poi-ooxml-schemas.version>4.1.2</poi-ooxml-schemas.version>
@@ -55,6 +56,7 @@
         <redisson-spring-boot.version>3.14.1</redisson-spring-boot.version>
         <spring-cloud-starter-alicloud-oss.verions>2.2.0.RELEASE</spring-cloud-starter-alicloud-oss.verions>
         <jjwt.version>0.9.1</jjwt.version>
+        <elasticsearch.version>7.14.1</elasticsearch.version>
 
     </properties>
 
@@ -391,6 +393,25 @@
                 <version>${jjwt.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
