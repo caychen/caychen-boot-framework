@@ -149,7 +149,7 @@ public class LoggerAspect {
                 return R.error(ErrorEnum.NULL_POINTER_ERROR);
             } else if (e instanceof ValidationException) {
                 //校验异常
-                return R.error(ErrorEnum.VALIDATION_ERROR, e.getMessage());
+                return R.error(ErrorEnum.INVALID_PARAMETER_ERROR, e.getMessage());
             } else if (e instanceof HttpRequestMethodNotSupportedException) {
                 //请求方式不支持
                 return R.error(ErrorEnum.REQUEST_METHOD_NOT_SUPPORT_ERROR, e.getMessage());
