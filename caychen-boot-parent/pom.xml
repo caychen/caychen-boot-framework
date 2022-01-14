@@ -57,6 +57,7 @@
         <spring-cloud-starter-alicloud-oss.verions>2.2.0.RELEASE</spring-cloud-starter-alicloud-oss.verions>
         <jjwt.version>0.9.1</jjwt.version>
         <elasticsearch.version>7.14.1</elasticsearch.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
 
     </properties>
 
@@ -412,6 +413,29 @@
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-jdk8 -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+
 
         </dependencies>
     </dependencyManagement>
