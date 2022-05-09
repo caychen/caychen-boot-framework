@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>caychen-boot-admin-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>caychen-boot-admin-client</name>
 
     <properties>
@@ -24,10 +24,6 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
