@@ -60,6 +60,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <canal-client.version>1.1.4</canal-client.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+        <servlet-api.version>4.0.1</servlet-api.version>
     </properties>
 
     <dependencyManagement>
@@ -454,6 +455,14 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>provided</scope>
             </dependency>
 
         </dependencies>
