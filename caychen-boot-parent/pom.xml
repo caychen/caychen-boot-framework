@@ -27,8 +27,8 @@
         <mybatis.version>3.5.7</mybatis.version>
         <mybatis-spring.version>2.0.6</mybatis-spring.version>
         <mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>
-        <mybatis-plus.version>3.4.3.2</mybatis-plus.version>
-        <mybatis-plus-boot.version>3.4.3.2</mybatis-plus-boot.version>
+        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus-boot.version>3.4.2</mybatis-plus-boot.version>
         <mapper-spring-boot.version>2.1.5</mapper-spring-boot.version>
         <jackson.version>2.12.4</jackson.version>
         <fastjson.version>1.2.78</fastjson.version>
@@ -61,6 +61,7 @@
         <canal-client.version>1.1.4</canal-client.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <servlet-api.version>4.0.1</servlet-api.version>
+        <knife4j-spring-boot.version>2.0.9</knife4j-spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -463,6 +464,13 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j-spring-boot.version}</version>
             </dependency>
 
         </dependencies>
