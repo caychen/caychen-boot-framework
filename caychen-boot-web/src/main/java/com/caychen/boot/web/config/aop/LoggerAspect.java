@@ -108,7 +108,7 @@ public class LoggerAspect {
                         result = JSON.toJSONString(o);
                         JSONObject jsonObject = JSON.parseObject(result);
                         Integer code = jsonObject.getInteger("code");
-                        if (Objects.equals(code.toString(), R.SUCCESS_CODE)) {
+                        if (Objects.equals(code, R.SUCCESS_CODE)) {
                             isSuccess = true;
                         } else {
                             isSuccess = false;
