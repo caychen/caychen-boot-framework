@@ -21,9 +21,9 @@ import java.util.List;
  * @Date: 2021/8/26 19:52
  * @Description:
  */
-public class JsonUtil {
+public class FastjsonUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(FastjsonUtil.class);
 
     private static final SerializeConfig CONFIG;
 

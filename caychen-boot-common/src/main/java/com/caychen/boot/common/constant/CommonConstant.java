@@ -21,4 +21,9 @@ public class CommonConstant {
     public static final String ORIGIN_ENCRYPT_STR = "SEhfZW5jcnlwdF9LRVkxMg==";
 
     public static final String DEFAULT_CHARSET = CharsetEnum.UTF_8.getCharset();
+
+    /**
+     * 参数签名使用
+     */
+    public static final String FIELD_SIGN = "sign";
 }
