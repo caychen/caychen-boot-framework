@@ -1,6 +1,6 @@
 package com.caychen.boot.common;
 
-import com.caychen.boot.common.utils.AesEncryptUtil;
+import com.caychen.boot.common.utils.crypto.AesEncryptUtil;
 import org.junit.jupiter.api.Test;
 
 /**

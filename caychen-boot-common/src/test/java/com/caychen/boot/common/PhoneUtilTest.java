@@ -1,6 +1,6 @@
 package com.caychen.boot.common;
 
-import com.caychen.boot.common.utils.PhoneUtil;
+import com.caychen.boot.common.utils.common.PhoneUtil;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 

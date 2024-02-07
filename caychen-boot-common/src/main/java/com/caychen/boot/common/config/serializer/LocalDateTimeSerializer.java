@@ -1,7 +1,7 @@
 package com.caychen.boot.common.config.serializer;
 
 import com.caychen.boot.common.constant.DateConstant;
-import com.caychen.boot.common.utils.DateUtil;
+import com.caychen.boot.common.utils.common.DateUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

@@ -1,6 +1,6 @@
 package com.caychen.boot.common.config.deserializer;
 
-import com.caychen.boot.common.utils.DateUtil;
+import com.caychen.boot.common.utils.common.DateUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;

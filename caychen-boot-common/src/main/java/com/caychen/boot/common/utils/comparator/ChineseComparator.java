@@ -1,6 +1,6 @@
 package com.caychen.boot.common.utils.comparator;
 
-import com.caychen.boot.common.utils.ChineseUtil;
+import com.caychen.boot.common.utils.validate.ChineseUtil;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;

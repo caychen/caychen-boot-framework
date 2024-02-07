@@ -1,6 +1,6 @@
 package com.caychen.boot.common.enums;
 
-import com.caychen.boot.common.utils.EnumUtils;
+import com.caychen.boot.common.utils.common.EnumUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

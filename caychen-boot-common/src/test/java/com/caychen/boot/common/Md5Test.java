@@ -1,6 +1,6 @@
 package com.caychen.boot.common;
 
-import com.caychen.boot.common.utils.MD5;
+import com.caychen.boot.common.utils.crypto.MD5;
 import org.junit.jupiter.api.Test;
 
 /**
