@@ -1,39 +1,42 @@
 package com.caychen.boot.web.config.aop;
 
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.caychen.boot.common.annotations.NoLog;
 import com.caychen.boot.common.constant.CommonConstant;
 import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;
+import com.caychen.boot.common.model.LogBaseModel;
 import com.caychen.boot.common.response.R;
-import com.google.common.collect.Maps;
+import com.caychen.boot.common.utils.common.DateUtil;
+import com.caychen.boot.common.utils.common.IpUtils;
+import com.caychen.boot.common.utils.lang.StringUtils;
+import com.caychen.boot.web.config.logger.LogHandler;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.ExtendedServletRequestDataBinder;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.sql.SQLSyntaxErrorException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,89 +45,69 @@ import java.util.Objects;
  */
 @Aspect
 @Slf4j
-@Component
+//@Component
 @Order(CommonConstant.ASPECT_ORDER_FOR_LOGGER)
-public class LoggerAspect {
+public class ComplexLoggerAspect {
+
+    @Autowired
+    private LogHandler logHandler;
 
     // 抽取公共的切入点表达式
-    @Pointcut("execution(* com.caychen..*.controller..*.*(..))")
+    @Pointcut("execution(* com..*.controller..*.*(..))")
     public void logging() {
     }
 
     @Around(value = "logging()")
     public Object loggerAround(ProceedingJoinPoint pjp) throws Throwable {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
         long start = System.currentTimeMillis();
 
-        StringBuilder sb = new StringBuilder();
-
-        Class<?> targetClass = pjp.getTarget().getClass();
-        //简易类名
-        String targetClassName = targetClass.getSimpleName();
-        //方法名
-        String methodName = pjp.getSignature().getName();
-
-        String ipAddr = getRemoteHostFromOriginIp(request);
-        String url = request.getRequestURI();
-
-        sb.append("请求源IP: [" + ipAddr + "], 请求URL: [" + StringUtils.upperCase(request.getMethod()) + " " + url + "], ");
-        String prefix = sb.toString();
-
-        StringBuilder sb1 = new StringBuilder(prefix);
-        sb1.append(targetClassName + "#" + methodName + "运行开始 start ===> 参数列表：");
-        Object[] args = pjp.getArgs();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
-        String[] argNames = methodSignature.getParameterNames(); // 参数名
-        Map<String, Object> paramMap = getParameterMapFromRequest(args, argNames);
+        Object target = pjp.getTarget();
+        Class<?> targetClass = target.getClass();
+        //简易类名
+        String targetClassName = targetClass.getSimpleName();
 
-        String paramJson = null;
+        //方法名
+        String methodName = pjp.getSignature().getName();
+        String ipAddr = IpUtils.getIPAddress(request);
+        String url = request.getRequestURI();
+
+        Object[] args = pjp.getArgs();
+        log.info("{}.{}() request:{}", target, methodName, args);
+
         Boolean isSuccess = null;
         String failReason = null;
         String result = null;
-        //使用try-catch避免序列号参数失败，影响后续调用
+
+        Object o = null;
         try {
-            if (paramMap.size() > 0) {
-                paramJson = JSON.toJSONString(paramMap);
-                sb1.append(paramJson);
-            } else {
-                sb1.append("无参");
-            }
-        } catch (Exception e) {
-            log.error("序列化参数有误，不影响后续调用： ", e);
-            sb1.append("序列化参数有误");
-        }
-
-        try {
-            //开始日志输出
-            log.info(sb1.toString());
-
-            Object o = pjp.proceed();
-
+            o = pjp.proceed();
+            //记录接口操作流水出口
             if (o != null && !(o instanceof ResponseEntity)) {
                 try {
                     if (!(o instanceof String)) {
                         result = JSON.toJSONString(o);
                         JSONObject jsonObject = JSON.parseObject(result);
-                        Integer code = jsonObject.getInteger("code");
-                        if (Objects.equals(code, R.SUCCESS_CODE)) {
+                        Object code = jsonObject.get("code");
+                        if (Objects.equals(Integer.valueOf(code.toString()), R.SUCCESS_CODE)) {
                             isSuccess = true;
                         } else {
                             isSuccess = false;
-                            failReason = jsonObject.get("message").toString();
+                            failReason = jsonObject.get("description").toString();
                             failReason = failReason.substring(0, 500);
                         }
                     } else if (o instanceof String) {
                         isSuccess = true;
+                        result = (String) o;
                     }
                 } catch (Exception e) {
                 }
             } else {
                 isSuccess = true;
             }
-
-            return o;//1、feign调用的服务返回正常包装的Response（包括正常或者异常）;2、自己内部正常返回
+            return o;
 
         } catch (Exception e) {
             isSuccess = false;
@@ -163,7 +146,7 @@ public class LoggerAspect {
         } finally {
             long end = System.currentTimeMillis();
             //结束日志输出
-            log.info(prefix + targetClassName + "#" + methodName + "运行结束[" + (isSuccess ? "成功" : "失败") + "] end ===> 耗时：[" + (end - start) + "]ms...");
+            log.info(targetClassName + "#" + methodName + "运行结束[" + (isSuccess ? "成功" : "失败") + "] end ===> 耗时：[" + (end - start) + "]ms...");
 
             //类上注解
             boolean presentNoLogAnnotation = targetClass.isAnnotationPresent(NoLog.class);
@@ -173,52 +156,76 @@ public class LoggerAspect {
             boolean methodNoLogAnnotationPresent = method.isAnnotationPresent(NoLog.class);
 
             if (!presentNoLogAnnotation && !methodNoLogAnnotationPresent) {
-                //todo：发送到日志平台
+                Object params = getParams(method, args);
+
+                LogBaseModel baseLogModel = new LogBaseModel();
+                baseLogModel.setIpAddr(ipAddr);
+                baseLogModel.setRequestUrl(url);
+                baseLogModel.setRequestDateTime(DateUtil.formatDate(start));
+                baseLogModel.setRequestParam(JSON.toJSONString(params));
+                baseLogModel.setResponseParam(result);
+                baseLogModel.setResponseDateTime(DateUtil.formatDate(end));
+                baseLogModel.setExecutionTime(end - start);
+                baseLogModel.setIsSuccess(isSuccess);
+                baseLogModel.setFailReason(failReason);
+                baseLogModel.setRequestMethod(StringUtils.upperCase(request.getMethod()));
+
+                logHandler.handleLog(baseLogModel);
             }
         }
 
     }
 
-    private Map<String, Object> getParameterMapFromRequest(Object[] args, String[] argNames) {
-        Map<String, Object> paramMap = Maps.newHashMap();
-        for (int i = 0; i < args.length; i++) {
-            //todo: 逐步改进参数列表中不需要序列号的参数
-            if (!(args[i] instanceof ExtendedServletRequestDataBinder
-                    || args[i] instanceof ServletRequest
-                    || args[i] instanceof ServletResponse
-                    || args[i] instanceof HttpSession
-                    || args[i] instanceof MultipartFile
-                    || args[i] instanceof MultipartFile[]
-                    || args[i] instanceof BindingResult)) {
-                paramMap.put(argNames[i], args[i]);
+    private Object getParams(Method method, Object[] args) {
+        List<Object> paramsList = Lists.newArrayList();
+        //拿到当前方法的参数数组
+        Parameter[] parameters = method.getParameters();
+
+        for (int i = 0; i < parameters.length; i++) {
+            Parameter parameter = parameters[i];
+            //参数名
+            String paramName = parameter.getName();
+
+            //获取RequestBody注解修饰的参数
+            if (parameter.isAnnotationPresent(RequestBody.class)) {
+                RequestBody requestBody = parameter.getAnnotation(RequestBody.class);
+                if (requestBody != null) {
+                    paramsList.add(args[i]);
+                }
+            } else if (parameter.isAnnotationPresent(RequestParam.class)) {
+                //获取RequestParam注解修饰的参数
+                RequestParam requestParam = parameter.getAnnotation(RequestParam.class);
+                Map<String, Object> map = new HashMap<>();
+                //获取的形参名称作为key
+                if (StringUtils.isNotEmpty(requestParam.value())) {
+                    paramName = requestParam.value();
+                }
+                map.put(paramName, args[i]);
+                paramsList.add(map);
+            } else if (parameter.isAnnotationPresent(PathVariable.class)) {
+                //获取PathVariable注解修饰的参数
+                PathVariable pathVariable = parameter.getAnnotation(PathVariable.class);
+                Map<String, Object> map = new HashMap<>();
+                //获取的形参名称作为key
+                String name = pathVariable.name();
+                if (StringUtils.isNotEmpty(name)) {
+                    paramName = name;
+                }
+                map.put(paramName, args[i]);
+                paramsList.add(map);
+            } else {
+                Map<String, Object> map = new HashMap<>();
+                map.put(paramName, args[i]);
+                paramsList.add(map);
             }
         }
-        return paramMap;
-    }
-
-    /**
-     * 获取目标主机的ip
-     *
-     * @param request
-     * @return
-     */
-    private String getRemoteHost(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+        if (paramsList.size() == 0) {
+            return null;
+        } else if (paramsList.size() == 1) {
+            return paramsList.get(0);
+        } else {
+            return paramsList;
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
-    }
-
-    private String getRemoteHostFromOriginIp(HttpServletRequest request) {
-        String ip = request.getHeader("originIp");
-        return ip;
     }
 
 }
