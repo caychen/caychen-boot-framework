@@ -95,26 +95,6 @@ public class JwtUtil {
     }
 
     /**
-     * 解析jwt，解析时若过期会抛出ExpiredJwtException异常
-     *
-     * @param jwt token
-     * @return jwt对象
-     */
-    public static Claims parseJwt(String jwt, String jwtSecret) {
-        //签名秘钥，和生成的签名的秘钥一模一样
-        SecretKey key = generateKey(jwtSecret);
-
-        //获取解析后的对象
-        Claims claims = Jwts.parser()
-                //设置签名秘钥，和生成的签名的秘钥一模一样
-                .setSigningKey(key)
-                //设置需要解析的jwt
-                .parseClaimsJws(jwt)
-                .getBody();
-        return claims;
-    }
-
-    /**
      * 由字符串生成加密key
      *
      * @return
@@ -125,7 +105,7 @@ public class JwtUtil {
             SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
             return key;
         } else {
-            throw new BusinessException(ErrorEnum.SECRET_KEY_EMPTY_ERROR);
+            throw new BusinessException(ErrorEnum.ENCRYPT_ERROR, "加密串为空");
         }
     }
 
