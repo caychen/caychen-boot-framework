@@ -151,24 +151,29 @@ public class DateUtil {
      * format Date
      *
      * @param timestamp 毫秒
+     * @return
+     */
+    public static String formatDate(Long timestamp) {
+        return formatDate(timestamp, DateConstant.YYYY_MM_DD_HH_MM_SS);
+    }
+
+
+    /**
+     * format Date
+     *
+     * @param timestamp 毫秒
      * @param pattern   格式
      * @return
      */
-    public static String formatDate(long timestamp, String pattern) {
+    public static String formatDate(Long timestamp, String pattern) {
         Instant instant = Instant.ofEpochMilli(timestamp);
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.systemDefault());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
         return localDateTime.format(dateTimeFormatter);
     }
 
-    /**
-     * 格式化日期
-     *
-     * @param date
-     * @return
-     */
-    public static String formatDate(Long date, String pattern) {
-        return formatDate(new Date(date), pattern);
+    public static String formatDate(Date date) {
+        return formatDate(date, DateConstant.YYYY_MM_DD_HH_MM_SS);
     }
 
     /**
