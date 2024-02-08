@@ -1,6 +1,6 @@
 package com.caychen.boot.rabbitmq.annotation;
 
-import com.caychen.boot.rabbitmq.RabbitQueueBindingConfig;
+import com.caychen.boot.rabbitmq.config.RabbitRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(RabbitQueueBindingConfig.class)
+@Import(RabbitRegister.class)
+//@Import(RabbitQueueBindingConfig.class)
 public @interface EnableRabbitProducer {
 }

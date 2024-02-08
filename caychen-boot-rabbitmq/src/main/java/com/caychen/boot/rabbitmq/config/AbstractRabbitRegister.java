@@ -1,4 +1,4 @@
-package com.caychen.boot.rabbitmq;
+package com.caychen.boot.rabbitmq.config;
 
 import com.caychen.boot.common.exception.SystemException;
 import com.caychen.boot.common.utils.lang.StringUtils;
@@ -10,50 +10,22 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.CustomExchange;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.BindResult;
-import org.springframework.boot.context.properties.bind.Binder;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
  * @Author: Caychen
- * @Date: 2024/2/6 18:07
+ * @Date: 2024/2/8 10:05
  * @Description:
  */
 @Slf4j
-//@Configuration
-public class RabbitQueueBindingConfig implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
+public abstract class AbstractRabbitRegister {
 
-    private Environment environment;
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        log.info("开始注册rabbit的交换机、队列、绑定...");
-        ConfigurationProperties annotation = RabbitQueueProperties.class.getAnnotation(ConfigurationProperties.class);
-        Binder binder = Binder.get(environment);
-        BindResult<RabbitQueueProperties> bound = binder.bind(annotation.prefix(), RabbitQueueProperties.class);
-        if (!bound.isBound()) {
-            log.warn("未获取到rabbit交换机、队列、绑定等配置，是否自定义配置？");
-            return ;
-        }
-
-        RabbitQueueProperties queueProperties = bound.get();
-
+    protected void initRegister(BeanDefinitionRegistry registry, RabbitQueueProperties queueProperties) {
         //获取交换机
         List<RabbitQueueProperties.ExchangeConfig> exchanges = queueProperties.getExchanges();
         if (CollectionUtils.isEmpty(exchanges)) {
@@ -83,7 +55,7 @@ public class RabbitQueueBindingConfig implements BeanDefinitionRegistryPostProce
      * @param exchange
      * @param queue
      */
-    private void registerBeanForQueue(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange, RabbitQueueProperties.QueueConfig queue) {
+    protected void registerBeanForQueue(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange, RabbitQueueProperties.QueueConfig queue) {
         //注册队列
         String topicName = queue.getTopicName();
         if (!registry.containsBeanDefinition(topicName)) {
@@ -110,7 +82,7 @@ public class RabbitQueueBindingConfig implements BeanDefinitionRegistryPostProce
      * @param exchange
      * @param queue
      */
-    private static void registerQueueBinding(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange, RabbitQueueProperties.QueueConfig queue) {
+    protected void registerQueueBinding(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange, RabbitQueueProperties.QueueConfig queue) {
         //注册绑定
         RabbitQueueProperties.BindingConfig bindingConfig = queue.getBinding();
         if (bindingConfig != null) {
@@ -136,7 +108,7 @@ public class RabbitQueueBindingConfig implements BeanDefinitionRegistryPostProce
      * @param registry
      * @param exchange
      */
-    private void registerBeanForExchange(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange) {
+    protected void registerBeanForExchange(BeanDefinitionRegistry registry, RabbitQueueProperties.ExchangeConfig exchange) {
         String exchangeName = exchange.getExchangeName();
 
         if (!registry.containsBeanDefinition(exchangeName)) {
@@ -183,11 +155,4 @@ public class RabbitQueueBindingConfig implements BeanDefinitionRegistryPostProce
         }
         return exchangeEnum.getExchangeClass();
     }
-
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-        //ignore
-    }
-
-
 }

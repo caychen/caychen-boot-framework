@@ -1,4 +1,4 @@
-package com.caychen.boot.rabbitmq;
+package com.caychen.boot.rabbitmq.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
