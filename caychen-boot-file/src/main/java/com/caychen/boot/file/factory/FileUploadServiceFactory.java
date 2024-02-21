@@ -1,6 +1,6 @@
 package com.caychen.boot.file.factory;
 
-import com.caychen.boot.common.utils.EnumUtils;
+import com.caychen.boot.common.utils.common.EnumUtils;
 import com.caychen.boot.file.abstracts.AbstractFileService;
 import com.caychen.boot.file.enums.FileStoreTypeEnum;
 import com.google.common.collect.Maps;

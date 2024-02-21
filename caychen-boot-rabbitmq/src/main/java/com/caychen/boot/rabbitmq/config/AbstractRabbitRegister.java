@@ -30,7 +30,7 @@ public abstract class AbstractRabbitRegister {
         List<RabbitQueueProperties.ExchangeConfig> exchanges = queueProperties.getExchanges();
         if (CollectionUtils.isEmpty(exchanges)) {
             log.warn("未配置rabbit交换机、队列、绑定等配置");
-            return ;
+            return;
         }
 
         exchanges.forEach(exchange -> {

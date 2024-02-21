@@ -37,7 +37,7 @@ public class MailComponent {
      * 发送简单文本邮件
      *
      * @param subject： 主题
-     * @param text： 文本信息
+     * @param text：    文本信息
      */
     public void sendSimpleMail(String subject, String text) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -53,8 +53,8 @@ public class MailComponent {
     /**
      * 发送带有链接和附件的复杂邮件(如果需要测试附件，需要在附件参数中指定附件的文件路径)
      *
-     * @param subject： 主题
-     * @param text： 文本信息
+     * @param subject：       主题
+     * @param text：          文本信息
      * @param attachmentMap： 附件
      * @throws MessagingException
      */
@@ -90,9 +90,9 @@ public class MailComponent {
     /**
      * 按照模版发送邮件(需要在resources\templates目录下准备一个模版文件,例如mail.ftl)
      *
-     * @param subject: 主题
+     * @param subject:      主题
      * @param templateName: 模板文件名
-     * @param params： 模板对应的参数值
+     * @param params：       模板对应的参数值
      * @throws MessagingException
      * @throws IOException
      * @throws TemplateException

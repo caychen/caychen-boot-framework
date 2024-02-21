@@ -30,7 +30,6 @@ import java.time.format.DateTimeFormatter;
 public class JacksonConfig {
 
 
-
     @Bean
     public ObjectMapper objectMapper() {
 
@@ -62,7 +61,6 @@ public class JacksonConfig {
         objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule());
         return objectMapper;
     }
-
 
 
 }

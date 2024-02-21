@@ -26,7 +26,7 @@ public class RabbitRegister extends AbstractRabbitRegister implements BeanFactor
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = (DefaultListableBeanFactory)beanFactory;
+        this.beanFactory = (DefaultListableBeanFactory) beanFactory;
     }
 
     @PostConstruct

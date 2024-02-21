@@ -2,9 +2,9 @@ package com.caychen.boot.file.abstracts;
 
 import com.caychen.boot.common.constant.DateConstant;
 import com.caychen.boot.common.constant.SymbolConstant;
-import com.caychen.boot.common.utils.DateUtil;
-import com.caychen.boot.common.utils.StringUtils;
-import com.caychen.boot.common.utils.UUIDUtil;
+import com.caychen.boot.common.utils.common.DateUtil;
+import com.caychen.boot.common.utils.lang.StringUtils;
+import com.caychen.boot.common.utils.random.UUIDUtil;
 import com.caychen.boot.file.IFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;

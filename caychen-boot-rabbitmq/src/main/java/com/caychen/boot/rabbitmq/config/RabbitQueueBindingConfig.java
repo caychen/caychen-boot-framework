@@ -36,7 +36,7 @@ public class RabbitQueueBindingConfig extends AbstractRabbitRegister implements 
         BindResult<RabbitQueueProperties> bound = binder.bind(annotation.prefix(), RabbitQueueProperties.class);
         if (!bound.isBound()) {
             log.warn("未获取到rabbit交换机、队列、绑定等配置，是否自定义配置？");
-            return ;
+            return;
         }
 
         RabbitQueueProperties queueProperties = bound.get();

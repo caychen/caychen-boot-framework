@@ -14,11 +14,6 @@ class ApplicationctxUtils implements ApplicationContextAware {
         return ctx;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationctxUtils.ctx = applicationContext;
-    }
-
     public static Object getBean(String beanName) {
         return ctx.getBean(beanName);
     }
@@ -32,6 +27,7 @@ class ApplicationctxUtils implements ApplicationContextAware {
 
     /**
      * 读取Bean
+     *
      * @Param
      * @Return
      **/
@@ -44,6 +40,7 @@ class ApplicationctxUtils implements ApplicationContextAware {
 
     /**
      * 是否包含某个Bean
+     *
      * @Param
      * @Return
      **/
@@ -53,6 +50,7 @@ class ApplicationctxUtils implements ApplicationContextAware {
 
     /**
      * 判断是否为单例
+     *
      * @Param
      * @Return
      **/
@@ -62,10 +60,16 @@ class ApplicationctxUtils implements ApplicationContextAware {
 
     /**
      * 通过名字获取Bean类型
+     *
      * @Param
      * @Return
      **/
     public static Class<? extends Object> getType(String name) {
         return ctx.getType(name);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        ApplicationctxUtils.ctx = applicationContext;
     }
 }

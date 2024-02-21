@@ -2,7 +2,7 @@ package com.caychen.boot.canal.config;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
-import com.caychen.boot.common.utils.StringUtils;
+import com.caychen.boot.common.utils.lang.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
