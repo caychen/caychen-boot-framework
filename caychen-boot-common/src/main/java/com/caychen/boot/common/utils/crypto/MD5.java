@@ -31,8 +31,19 @@ public final class MD5 {
     /**
      * 默认的密码字符串组合，用来将字节转换成 16 进制表示的字符,apache校验下载的文件的正确性用的就是默认的这个组合
      */
-    protected static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    protected static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    protected static MessageDigest messagedigest = null;
+
+    static {
+        try {
+            messagedigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException nsaex) {
+            System.err.println(MD5.class.getName()
+                    + "初始化失败，MessageDigest不支持MD5Util。");
+            nsaex.printStackTrace();
+        }
+    }
 
     public static String encrypt(String strSrc) {
         try {
@@ -55,17 +66,6 @@ public final class MD5 {
         }
     }
 
-    protected static MessageDigest messagedigest = null;
-    static {
-        try {
-            messagedigest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException nsaex) {
-            System.err.println(MD5.class.getName()
-                    + "初始化失败，MessageDigest不支持MD5Util。");
-            nsaex.printStackTrace();
-        }
-    }
-
     /**
      * 生成字符串的md5校验值
      *
@@ -79,29 +79,12 @@ public final class MD5 {
     /**
      * 判断字符串的md5校验码是否与一个已知的md5码相匹配
      *
-     * @param password
-     *            要校验的字符串
-     * @param md5PwdStr
-     *            已知的md5校验码
+     * @param password  要校验的字符串
+     * @param md5PwdStr 已知的md5校验码
      * @return
      */
     public static boolean checkPassword(String password, String md5PwdStr) {
         String s = getMD5String(password);
-        return s.equals(md5PwdStr);
-    }
-
-    /**
-     * 判断字符串的md5校验码是否与一个已知的md5码相匹配
-     *
-     * @param password
-     *            要校验的字符串
-     * @param userPassword
-     *            数据库密码
-     * @return
-     */
-    public boolean checkPasswordAndUserPwd(String password, String userPassword) {
-        String s = getMD5String(password);
-        String md5PwdStr = getMD5String(userPassword);
         return s.equals(md5PwdStr);
     }
 
@@ -134,7 +117,7 @@ public final class MD5 {
      * 原因是当使用 FileChannel.map 方法时，MappedByteBuffer 已经在系统内占用了一个句柄， 而使用
      * FileChannel.close 方法是无法释放这个句柄的，且FileChannel有没有提供类似 unmap 的方法，
      * 因此会出现无法删除文件的情况。
-     *
+     * <p>
      * 不推荐使用
      *
      * @param bytes
@@ -209,6 +192,7 @@ public final class MD5 {
 
     /**
      * 数据加密
+     *
      * @param data
      * @return
      * @throws Exception
@@ -225,6 +209,7 @@ public final class MD5 {
 
     /**
      * [生成签名：若含有sign_type字段则必须和signType参数保持一致]
+     *
      * @param data
      * @param key
      * @return
@@ -249,11 +234,11 @@ public final class MD5 {
     }
 
     /**
+     * @param * @param o
+     * @return java.util.Map<java.lang.String, java.lang.String>
      * @Description TODO 生成包含url请求参数map
      * @Date <p/>2020/6/18 上午10:49
      * @author <p/>LY
-     * @param  * @param o
-     * @return java.util.Map<java.lang.String,java.lang.String>
      */
     public static Map<String, String> createGetParamMap(Object o) throws Exception {
         Map<String, String> map = new HashMap<String, String>();
@@ -263,42 +248,44 @@ public final class MD5 {
             String fieldName = field.getName();
             // 获取属性值
             Object fieldValue = getFieldValue(fieldName, o);
-            if(fieldValue != null){
+            if (fieldValue != null) {
                 map.put(fieldName, fieldValue.toString());
             }
         }
         return map;
     }
+
     /**
+     * @param * @param fieldName
+     * @param o
+     * @return java.lang.Object
      * @Description TODO 获取指定属性的属性值
      * @Date <p/>2020/6/18 上午10:49
      * @author <p/>LY
-     * @param  * @param fieldName
-     * @param o
-     * @return java.lang.Object
      */
     public static Object getFieldValue(String fieldName, Object o) throws Exception {
         String firstLetter = fieldName.substring(0, 1).toUpperCase();
         String getter = "get" + firstLetter + fieldName.substring(1);
-        Method method = o.getClass().getMethod(getter, new Class[] {});
-        Object value = method.invoke(o, new Object[] {});
+        Method method = o.getClass().getMethod(getter, new Class[]{});
+        Object value = method.invoke(o, new Object[]{});
         return value;
     }
+
     /**
+     * @param * @param params
+     * @return java.lang.String
      * @Description TODO 调用商城生成签名
      * @Date <p/>2020/6/18 上午10:49
      * @author <p/>LY
-     * @param  * @param params
-     * @return java.lang.String
      */
-    public static String sign(Map<String,String> params){
-        List<String> keys=new ArrayList<String>(params.keySet());
+    public static String sign(Map<String, String> params) {
+        List<String> keys = new ArrayList<String>(params.keySet());
         Collections.sort(keys);
-        String string="";
-        for(String s:keys){
-            string+=params.get(s);
+        String string = "";
+        for (String s : keys) {
+            string += params.get(s);
         }
-        String sign="";
+        String sign = "";
         try {
             sign = toHexValue(encryptMD5(string.getBytes(Charset.forName("utf-8"))));
         } catch (Exception e) {
@@ -309,7 +296,7 @@ public final class MD5 {
     }
 
     private static String toHexValue(byte[] messageDigest) {
-        if (messageDigest == null){
+        if (messageDigest == null) {
             return "";
         }
 
@@ -324,10 +311,23 @@ public final class MD5 {
         return hexValue.toString();
     }
 
-    private static byte[] encryptMD5(byte[] data)throws Exception{
+    private static byte[] encryptMD5(byte[] data) throws Exception {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
         md5.update(data);
         return md5.digest();
+    }
+
+    /**
+     * 判断字符串的md5校验码是否与一个已知的md5码相匹配
+     *
+     * @param password     要校验的字符串
+     * @param userPassword 数据库密码
+     * @return
+     */
+    public boolean checkPasswordAndUserPwd(String password, String userPassword) {
+        String s = getMD5String(password);
+        String md5PwdStr = getMD5String(userPassword);
+        return s.equals(md5PwdStr);
     }
 
 }

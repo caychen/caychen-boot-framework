@@ -16,21 +16,21 @@ public class PhoneUtilTest {
 
     @Test
     @Order(1)
-    public void testPhoneCity(){
+    public void testPhoneCity() {
         String cn = PhoneUtil.getCity("15221795280", "CN", Locale.CHINA);
         System.out.println(cn);
     }
 
     @Test
     @Order(2)
-    public void testPhoneCarrier(){
+    public void testPhoneCarrier() {
         String cn = PhoneUtil.getCarrier("15221795280", "CN", Locale.CHINA);
         System.out.println(cn);
     }
 
     @Test
     @Order(3)
-    public void testTimeZone(){
+    public void testTimeZone() {
         List<String> timeZone = PhoneUtil.getTimeZone("15221795280", "CN");
         System.out.println(timeZone);
     }

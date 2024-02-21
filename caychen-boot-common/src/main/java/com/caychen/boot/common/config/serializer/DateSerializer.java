@@ -18,6 +18,7 @@ public class DateSerializer extends JsonSerializer<Date> {
 
     /**
      * json(jackson)序列化时将Date类型序列化成String类型
+     *
      * @param value
      * @param gen
      * @param serializers

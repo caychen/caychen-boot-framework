@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class MathUtil {
 
-    public static String floor(String str,int num){
-        double s = Math.floor(Double.parseDouble(str) * Math.pow(10,num)) * (1 / Math.pow(10,num)) * 1d;
+    public static String floor(String str, int num) {
+        double s = Math.floor(Double.parseDouble(str) * Math.pow(10, num)) * (1 / Math.pow(10, num)) * 1d;
         return String.valueOf(s);
     }
 
@@ -24,7 +24,7 @@ public class MathUtil {
      * 四舍五入保留小数位
      */
     public static BigDecimal scale(Float org, int newScale) {
-        if(org == null){
+        if (org == null) {
             org = 0F;
         }
         return BigDecimal.valueOf(org).setScale(newScale, BigDecimal.ROUND_HALF_UP);
@@ -34,7 +34,7 @@ public class MathUtil {
      * 四舍五入保留小数位
      */
     public static BigDecimal scale(BigDecimal org, int newScale) {
-        if(org == null){
+        if (org == null) {
             org = BigDecimal.ZERO;
         }
         return org.setScale(newScale, BigDecimal.ROUND_HALF_UP);
@@ -44,7 +44,7 @@ public class MathUtil {
      * 四舍五入保留小数位
      */
     public static BigDecimal scale(String org, int newScale) {
-        if(StringUtils.isEmpty(org)){
+        if (StringUtils.isEmpty(org)) {
             org = "0";
         }
         return BigDecimal.valueOf(Double.valueOf(org)).setScale(newScale, BigDecimal.ROUND_HALF_UP);
@@ -54,7 +54,7 @@ public class MathUtil {
      * 四舍五入保留小数位
      */
     public static List<BigDecimal> scaleBigDecimalList(List<BigDecimal> b, int newScale) {
-        return b.stream().map(e -> e == null? BigDecimal.ZERO : e.setScale(newScale, BigDecimal.ROUND_HALF_UP))
+        return b.stream().map(e -> e == null ? BigDecimal.ZERO : e.setScale(newScale, BigDecimal.ROUND_HALF_UP))
                 .collect(Collectors.toList());
     }
 
@@ -83,6 +83,6 @@ public class MathUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(scale(15.3333333D,2));
+        System.out.println(scale(15.3333333D, 2));
     }
 }

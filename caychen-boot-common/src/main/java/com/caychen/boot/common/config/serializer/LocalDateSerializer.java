@@ -18,6 +18,7 @@ public class LocalDateSerializer extends JsonSerializer<LocalDate> {
 
     /**
      * json(jackson)序列化时将LocalDate类型序列化成String类型
+     *
      * @param value
      * @param gen
      * @param serializers

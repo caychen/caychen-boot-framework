@@ -6,7 +6,6 @@ import java.text.NumberFormat;
 
 /**
  * 数字转换工具类
- *
  */
 
 public class NumberFormatUtil {
@@ -20,7 +19,7 @@ public class NumberFormatUtil {
      */
     public static Double getDoubleValueData(Double data, Integer num) {
         try {
-            return Double.valueOf(formatToString(data,num));
+            return Double.valueOf(formatToString(data, num));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -29,7 +28,7 @@ public class NumberFormatUtil {
 
     public static Float getFloatValueData(Double data, Integer num) {
         try {
-            return Float.valueOf(formatToString(data,num));
+            return Float.valueOf(formatToString(data, num));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -113,7 +112,8 @@ public class NumberFormatUtil {
 
 
     /**
-     *两个数相加
+     * 两个数相加
+     *
      * @param addend
      * @param augend
      * @return
@@ -123,7 +123,8 @@ public class NumberFormatUtil {
     }
 
     /**
-     *两个数相减
+     * 两个数相减
+     *
      * @param minuend
      * @param subtrahend
      * @return
@@ -133,32 +134,35 @@ public class NumberFormatUtil {
     }
 
     /**
-     *两个数相乘
+     * 两个数相乘
+     *
      * @param multiplicand
      * @param multiplier
      * @return
      */
-    public static BigDecimal digitalMul(String multiplicand,String multiplier) {
+    public static BigDecimal digitalMul(String multiplicand, String multiplier) {
         return new BigDecimal(multiplicand).multiply(new BigDecimal(multiplier)).setScale(1, BigDecimal.ROUND_HALF_UP);
     }
 
     /**
-     *两个数相除
+     * 两个数相除
+     *
      * @param LargeDivisor
      * @param divisor
      * @param scale
      * @return
      */
-    public static BigDecimal digitalDiv(String LargeDivisor,String divisor,int scale) {
-        return new BigDecimal(LargeDivisor).divide(new BigDecimal(divisor),scale,BigDecimal.ROUND_HALF_UP);
+    public static BigDecimal digitalDiv(String LargeDivisor, String divisor, int scale) {
+        return new BigDecimal(LargeDivisor).divide(new BigDecimal(divisor), scale, BigDecimal.ROUND_HALF_UP);
     }
 
     /**
      * double转String(主要是将科学计数法转字符串)
+     *
      * @param value
      * @return
      */
-    public static String parseString(Double value){
+    public static String parseString(Double value) {
         if (value == null) {
             return "";
         }

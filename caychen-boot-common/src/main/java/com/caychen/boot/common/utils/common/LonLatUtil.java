@@ -11,7 +11,9 @@ import java.math.BigDecimal;
  */
 public class LonLatUtil {
     protected static final Logger logger = LoggerFactory.getLogger(LonLatUtil.class);
-    /** 地球半径 计算经纬度之间的距离时候使用 */
+    /**
+     * 地球半径 计算经纬度之间的距离时候使用
+     */
     private static final double EARTH_RADIUS = 6378.137;
 
     /**

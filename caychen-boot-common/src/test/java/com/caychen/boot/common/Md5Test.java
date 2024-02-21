@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class Md5Test {
 
     @Test
-    public void testEncrypt(){
+    public void testEncrypt() {
         String encrypt = MD5.encrypt("caychen");
         System.out.println(encrypt);
     }

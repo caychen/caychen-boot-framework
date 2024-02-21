@@ -1,8 +1,8 @@
 package com.caychen.boot.common.utils.http;
 
 
-import com.caychen.boot.common.constant.HttpConstant;
 import com.caychen.boot.common.constant.CommonConstant;
+import com.caychen.boot.common.constant.HttpConstant;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;

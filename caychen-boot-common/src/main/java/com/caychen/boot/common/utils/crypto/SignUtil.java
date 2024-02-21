@@ -21,12 +21,13 @@ public class SignUtil {
 
     /**
      * hmac签名
-     * @param signMap 待签名字段集合
+     *
+     * @param signMap   待签名字段集合
      * @param secretKey 签名秘钥
      * @return 签名
      */
     public static String sign(TreeMap<String, String> signMap, String secretKey) throws NoSuchAlgorithmException {
-        if (MapUtils.isEmpty(signMap)){
+        if (MapUtils.isEmpty(signMap)) {
             return "";
         }
         String params = generateSignString(signMap, secretKey);
@@ -69,18 +70,19 @@ public class SignUtil {
     /**
      * 生成签名字符串
      * 按照{key1}={value1}&{key2}={value2}&...&{macKey}且字母升序的方式拼接签名字符串，如:body=body&X-App-Id=1&123mac。
+     *
      * @param signMap 待签名字段集合
-     * @param macKey 签名秘钥
+     * @param macKey  签名秘钥
      * @return 签名字符串
      */
     public static String generateSignString(TreeMap<String, String> signMap, String macKey) {
-        if (MapUtils.isEmpty(signMap)){
+        if (MapUtils.isEmpty(signMap)) {
             return "";
         }
         StringBuilder signStrBuilder = new StringBuilder();
-        for (Map.Entry<String, String> entry : signMap.entrySet()){
+        for (Map.Entry<String, String> entry : signMap.entrySet()) {
             //过滤空值
-            if (StringUtils.isEmpty(entry.getValue())){
+            if (StringUtils.isEmpty(entry.getValue())) {
                 continue;
             }
             //拼接签名字段

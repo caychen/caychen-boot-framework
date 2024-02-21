@@ -30,6 +30,11 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    public static final int CURRENT = 0;
+    public static final int NEXT = 1;
+    public static final int PREVIOUS = -1;
+    public static final int QUARTER = 3;
+
     public static Date minDateTime(Date date) {
         return new DateTime(date)
                 .setField(DateField.HOUR_OF_DAY, 0)
@@ -156,7 +161,6 @@ public class DateUtil {
     public static String formatDate(Long timestamp) {
         return formatDate(timestamp, DateConstant.YYYY_MM_DD_HH_MM_SS);
     }
-
 
     /**
      * format Date
@@ -307,7 +311,6 @@ public class DateUtil {
         return now(zoneId).withDayOfMonth(1);
     }
 
-
     /**
      * 将Date转成指定时区的Date
      *
@@ -435,7 +438,6 @@ public class DateUtil {
         return ZonedDateTime.parse(date, formatter);
     }
 
-
     /**
      * 将时间戳long转成ZonedDateTime
      *
@@ -536,14 +538,6 @@ public class DateUtil {
     public static long toLong(LocalDateTime localDateTime, ZoneId zoneId) {
         return zoneDateTimeToLong(localDateTime.atZone(zoneId));
     }
-
-    public static final int CURRENT = 0;
-
-    public static final int NEXT = 1;
-
-    public static final int PREVIOUS = -1;
-
-    public static final int QUARTER = 3;
 
     /**
      * 获取某天的开始日期

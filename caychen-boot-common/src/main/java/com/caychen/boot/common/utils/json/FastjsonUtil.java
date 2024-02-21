@@ -26,13 +26,6 @@ public class FastjsonUtil {
     private static final Logger logger = LoggerFactory.getLogger(FastjsonUtil.class);
 
     private static final SerializeConfig CONFIG;
-
-    static {
-        CONFIG = new SerializeConfig();
-        CONFIG.put(java.util.Date.class, new JSONLibDataFormatSerializer());
-        CONFIG.put(java.sql.Date.class, new JSONLibDataFormatSerializer());
-    }
-
     private static final SerializerFeature[] FEATURES = {
             SerializerFeature.WriteMapNullValue,
             SerializerFeature.WriteNullListAsEmpty,
@@ -40,6 +33,12 @@ public class FastjsonUtil {
             SerializerFeature.WriteNullBooleanAsFalse,
             SerializerFeature.WriteNullStringAsEmpty
     };
+
+    static {
+        CONFIG = new SerializeConfig();
+        CONFIG.put(java.util.Date.class, new JSONLibDataFormatSerializer());
+        CONFIG.put(java.sql.Date.class, new JSONLibDataFormatSerializer());
+    }
 
     public static String writeValueAsString(Object value) {
         if (value == null) {

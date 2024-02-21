@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author: Caychen
  * @Date: 2023/4/7 19:42
- * @Description:
- *      随机生成短链接工具类，通过短链接和长链接的映射关系，进行访问短链接的时候，重定向到长链接
+ * @Description: 随机生成短链接工具类，通过短链接和长链接的映射关系，进行访问短链接的时候，重定向到长链接
  */
 @Slf4j
 public class ShortUrlGenUtil {

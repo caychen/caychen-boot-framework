@@ -6,6 +6,7 @@ public class EmojiUtil {
 
     /**
      * 是否包含Emoji表情
+     *
      * @param source
      * @return
      */
@@ -26,6 +27,7 @@ public class EmojiUtil {
 
     /**
      * 判断是否是Emoji表情
+     *
      * @param codePoint
      * @return
      */

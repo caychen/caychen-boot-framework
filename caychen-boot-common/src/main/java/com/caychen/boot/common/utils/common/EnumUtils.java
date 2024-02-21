@@ -29,16 +29,16 @@ public abstract class EnumUtils {
 
     public static <T> Boolean isSupport(Class<T> enumClass, String name) {
         return Objects.nonNull(Stream.of(enumClass.getEnumConstants()).filter(enumObj -> {
-            String enumName = null;
-            try {
-                enumName = (String) enumClass.getMethod("name").invoke(enumObj);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return StringUtils.equalsIgnoreCase(enumName, name);
-        })
-                .findFirst()
-                .orElse(null)
+                            String enumName = null;
+                            try {
+                                enumName = (String) enumClass.getMethod("name").invoke(enumObj);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return StringUtils.equalsIgnoreCase(enumName, name);
+                        })
+                        .findFirst()
+                        .orElse(null)
         );
 
     }
