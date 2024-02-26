@@ -11,6 +11,7 @@ import com.caychen.boot.common.response.R;
 import com.caychen.boot.common.utils.common.DateUtil;
 import com.caychen.boot.common.utils.common.IpUtils;
 import com.caychen.boot.common.utils.lang.StringUtils;
+import com.caychen.boot.common.utils.random.UUIDUtil;
 import com.caychen.boot.web.config.logger.LogHandler;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +61,9 @@ public class ComplexLoggerAspect {
 
     @Around(value = "logging()")
     public Object loggerAround(ProceedingJoinPoint pjp) throws Throwable {
+        //MDC 链路追踪
+        MDC.put("traceId", UUIDUtil.getUUIDWithoutReplace());
+
         long start = System.currentTimeMillis();
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -144,6 +149,8 @@ public class ComplexLoggerAspect {
                 return R.error(ErrorEnum.INTERNAL_SERVER_ERROR, e.getMessage());
             }
         } finally {
+            MDC.remove("traceId");
+
             long end = System.currentTimeMillis();
             //结束日志输出
             log.info(targetClassName + "#" + methodName + "运行结束[" + (isSuccess ? "成功" : "失败") + "] end ===> 耗时：[" + (end - start) + "]ms...");
