@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.caychen.boot</groupId>
+        <artifactId>caychen-boot-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>caychen-boot-middleware</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>caychen-boot-dao</module>
+        <module>caychen-boot-mq</module>
+        <module>caychen-boot-cache</module>
+        <module>caychen-boot-registry</module>
+        <module>caychen-boot-monitor</module>
+        <module>caychen-boot-searcher</module>
+        <module>caychen-boot-seata</module>
+        <module>caychen-boot-canal</module>
+        <module>caychen-boot-flowcontrol</module>
+        <module>caychen-boot-apm</module>
+        <module>caychen-boot-job</module>
+    </modules>
+
+    <properties>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.caychen.boot</groupId>
+            <artifactId>caychen-boot-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.caychen.boot</groupId>
+            <artifactId>caychen-boot-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
