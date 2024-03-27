@@ -17,6 +17,7 @@
     <modules>
         <module>caychen-boot-common</module>
         <module>caychen-boot-core</module>
+        <module>caychen-boot-web</module>
     </modules>
 
     <properties>
