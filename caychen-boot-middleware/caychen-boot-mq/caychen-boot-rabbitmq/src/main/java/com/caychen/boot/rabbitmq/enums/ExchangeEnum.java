@@ -24,8 +24,8 @@ public enum ExchangeEnum {
     X_DELAYED_MESSAGE("x-delayed-message", CustomExchange.class),
     ;
 
-    private String exchangeType;
-    private Class<? extends Exchange> exchangeClass;
+    private final String exchangeType;
+    private final Class<? extends Exchange> exchangeClass;
 
     ExchangeEnum(String exchangeType, Class<? extends Exchange> exchangeClass) {
         this.exchangeType = exchangeType;
