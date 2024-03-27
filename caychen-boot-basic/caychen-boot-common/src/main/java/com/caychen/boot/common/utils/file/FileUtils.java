@@ -1,10 +1,13 @@
 package com.caychen.boot.common.utils.file;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.caychen.boot.common.constant.SystemConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,6 +52,10 @@ public class FileUtils {
         return FileUtils.read(FileUtils.class.getClassLoader().getResourceAsStream(path), StandardCharsets.UTF_8.name());
     }
 
+    private static String read(InputStream is) throws IOException {
+        return read(is, StandardCharsets.UTF_8.name());
+    }
+
     private static String read(InputStream is, String encoding) throws IOException {
         StringBuilder content = new StringBuilder();
 
@@ -63,6 +70,14 @@ public class FileUtils {
             log.error("文件读取失败，", e);
         }
         return content.toString();
+    }
+
+    public static <T> T readJsonFile(String jsonFilePath, TypeReference<T> tr) throws FileNotFoundException {
+        try (InputStream is = new FileInputStream(jsonFilePath)) {
+            return JSON.parseObject(read(is), tr);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
