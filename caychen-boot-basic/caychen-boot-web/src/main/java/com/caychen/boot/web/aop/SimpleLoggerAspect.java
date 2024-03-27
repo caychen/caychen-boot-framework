@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.aop;
+package com.caychen.boot.web.aop;
 
 import com.caychen.boot.common.constant.CommonConstant;
 import com.caychen.boot.common.enums.ErrorEnum;

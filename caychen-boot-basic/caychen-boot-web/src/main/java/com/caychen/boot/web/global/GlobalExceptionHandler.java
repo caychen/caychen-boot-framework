@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config;
+package com.caychen.boot.web.global;
 
 import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;

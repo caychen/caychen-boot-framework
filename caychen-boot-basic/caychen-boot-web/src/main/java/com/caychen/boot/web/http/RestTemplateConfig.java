@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.http;
+package com.caychen.boot.web.http;
 
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;

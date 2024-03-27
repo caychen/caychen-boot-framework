@@ -1,9 +1,9 @@
-package com.caychen.boot.core.config.config;
+package com.caychen.boot.web.config;
 
-import com.caychen.boot.core.config.aop.ComplexLoggerAspect;
-import com.caychen.boot.core.config.aop.SimpleLoggerAspect;
 import com.caychen.boot.core.config.logger.ConsoleLogHandler;
 import com.caychen.boot.core.config.logger.LogHandler;
+import com.caychen.boot.web.aop.ComplexLoggerAspect;
+import com.caychen.boot.web.aop.SimpleLoggerAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.swagger;
+package com.caychen.boot.web.swagger;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

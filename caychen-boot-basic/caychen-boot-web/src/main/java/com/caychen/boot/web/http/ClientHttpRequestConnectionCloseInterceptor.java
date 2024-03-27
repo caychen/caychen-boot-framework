@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.http;
+package com.caychen.boot.web.http;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.web;
+package com.caychen.boot.web.interceptor;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

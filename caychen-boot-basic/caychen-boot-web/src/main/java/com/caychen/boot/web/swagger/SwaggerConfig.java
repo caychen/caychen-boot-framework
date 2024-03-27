@@ -1,4 +1,4 @@
-package com.caychen.boot.core.config.swagger;
+package com.caychen.boot.web.swagger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
