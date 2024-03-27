@@ -26,18 +26,17 @@ public class RedisDistributedLock {
     private static final String UNLOCK_LUA;
 
     static {
-        StringBuilder sb = new StringBuilder();
-        sb.append("if redis.call(\"get\",KEYS[1]) == ARGV[1] ");
-        sb.append("then ");
-        sb.append("    return redis.call(\"del\",KEYS[1]) ");
-        sb.append("else ");
-        sb.append("    return 0 ");
-        sb.append("end ");
-        UNLOCK_LUA = sb.toString();
+        String sb = "if redis.call(\"get\",KEYS[1]) == ARGV[1] " +
+                "then " +
+                "    return redis.call(\"del\",KEYS[1]) " +
+                "else " +
+                "    return 0 " +
+                "end ";
+        UNLOCK_LUA = sb;
     }
 
-    private StringRedisTemplate redisTemplate;
-    private ThreadLocal<String> lockFlag = new ThreadLocal<>();
+    private final StringRedisTemplate redisTemplate;
+    private final ThreadLocal<String> lockFlag = new ThreadLocal<>();
 
     public RedisDistributedLock(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;

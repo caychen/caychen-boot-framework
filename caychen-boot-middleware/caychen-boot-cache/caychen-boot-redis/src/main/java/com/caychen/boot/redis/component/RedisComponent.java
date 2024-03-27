@@ -10,8 +10,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -145,7 +145,7 @@ public class RedisComponent {
         redisScript.setLocation(new ClassPathResource("unlock.lua"));
         redisScript.setResultType(Long.class);
         //没有指定序列化方式，默认使用上面配置的
-        Object result = redisTemplate.execute(redisScript, Arrays.asList(lockKey), requestId);
+        Object result = redisTemplate.execute(redisScript, List.of(lockKey), requestId);
         return Objects.equals(result, Long.valueOf(1));
     }
 }
