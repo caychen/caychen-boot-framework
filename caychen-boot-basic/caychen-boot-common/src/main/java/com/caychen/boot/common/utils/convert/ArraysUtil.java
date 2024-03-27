@@ -50,7 +50,7 @@ public class ArraysUtil {
 
     public static final byte[] subArrays(byte[] bytes, int startIndex) {
         if (startIndex > bytes.length) {
-            throw new IndexOutOfBoundsException("statIndex = " + startIndex + " , bytes length = " + bytes.length + "");
+            throw new IndexOutOfBoundsException("statIndex = " + startIndex + " , bytes length = " + bytes.length);
         } else {
             byte[] rbytes = new byte[bytes.length - startIndex];
             System.arraycopy(bytes, startIndex, rbytes, 0, rbytes.length);

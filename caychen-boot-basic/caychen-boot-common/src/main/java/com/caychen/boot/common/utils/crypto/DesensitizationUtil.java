@@ -65,8 +65,6 @@ public class DesensitizationUtil {
      * @Return regex
      */
     private static String buildGroundBlurRegex(int startLen, int endLen) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("(?<=\\w{").append(startLen).append("})\\w(?=\\w{").append(endLen).append("})");
-        return stringBuilder.toString();
+        return "(?<=\\w{" + startLen + "})\\w(?=\\w{" + endLen + "})";
     }
 }

@@ -44,8 +44,6 @@ public class ChineseUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
         return output;
     }
@@ -116,7 +114,7 @@ public class ChineseUtil {
             //老版车队app司机姓名没有屏蔽特殊字符，getFirstSpell可能会返回null
             String strFirstSpell = getFirstSpell(name);
             if (StringUtils.isNotEmpty(strFirstSpell)) {
-                result.append(strFirstSpell.substring(0, 1));
+                result.append(strFirstSpell.charAt(0));
             }
         }
         return result.toString();

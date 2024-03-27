@@ -579,7 +579,7 @@ public class DateUtil {
      * @return
      */
     public static LocalDateTime quarterStart(int offset) {
-        final LocalDateTime date = LocalDateTime.now().plusMonths(offset * 3);
+        final LocalDateTime date = LocalDateTime.now().plusMonths(offset * 3L);
         int month = date.getMonth().getValue();//当月
         int start = 0;
         if (month >= 2 && month <= 4) {//第一季度

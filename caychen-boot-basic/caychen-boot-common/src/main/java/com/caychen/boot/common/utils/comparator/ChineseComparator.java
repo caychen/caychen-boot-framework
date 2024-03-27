@@ -79,8 +79,6 @@ public class ChineseComparator<T> implements Comparator<T> {
             }
         } catch (Exception e) {
 
-        } finally {
-
         }
         return 0;
     }

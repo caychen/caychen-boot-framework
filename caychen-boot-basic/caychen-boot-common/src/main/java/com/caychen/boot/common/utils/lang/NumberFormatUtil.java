@@ -2,6 +2,7 @@ package com.caychen.boot.common.utils.lang;
 
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 
 /**
@@ -58,7 +59,7 @@ public class NumberFormatUtil {
             df = new java.text.DecimalFormat("#0.0");
         }
         try {
-            String d = data == null ? "0" : df.format(data) + "";
+            String d = data == null ? "0" : df.format(data);
             return d;
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -103,7 +104,7 @@ public class NumberFormatUtil {
     public static double formatNumber(double src, int validBit) {
         double result = src;
         try {
-            result = new BigDecimal(src).setScale(validBit, BigDecimal.ROUND_HALF_UP).doubleValue();
+            result = new BigDecimal(src).setScale(validBit, RoundingMode.HALF_UP).doubleValue();
         } catch (Exception e) {
             // do nothing
         }
@@ -119,7 +120,7 @@ public class NumberFormatUtil {
      * @return
      */
     public static BigDecimal digitalAdd(String addend, String augend) {
-        return new BigDecimal(addend).add(new BigDecimal(augend)).setScale(2, BigDecimal.ROUND_HALF_UP);
+        return new BigDecimal(addend).add(new BigDecimal(augend)).setScale(2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -130,7 +131,7 @@ public class NumberFormatUtil {
      * @return
      */
     public static BigDecimal digitalSub(String minuend, String subtrahend) {
-        return new BigDecimal(minuend).subtract(new BigDecimal(subtrahend)).setScale(1, BigDecimal.ROUND_HALF_UP);
+        return new BigDecimal(minuend).subtract(new BigDecimal(subtrahend)).setScale(1, RoundingMode.HALF_UP);
     }
 
     /**
@@ -141,7 +142,7 @@ public class NumberFormatUtil {
      * @return
      */
     public static BigDecimal digitalMul(String multiplicand, String multiplier) {
-        return new BigDecimal(multiplicand).multiply(new BigDecimal(multiplier)).setScale(1, BigDecimal.ROUND_HALF_UP);
+        return new BigDecimal(multiplicand).multiply(new BigDecimal(multiplier)).setScale(1, RoundingMode.HALF_UP);
     }
 
     /**
@@ -153,7 +154,7 @@ public class NumberFormatUtil {
      * @return
      */
     public static BigDecimal digitalDiv(String LargeDivisor, String divisor, int scale) {
-        return new BigDecimal(LargeDivisor).divide(new BigDecimal(divisor), scale, BigDecimal.ROUND_HALF_UP);
+        return new BigDecimal(LargeDivisor).divide(new BigDecimal(divisor), scale, RoundingMode.HALF_UP);
     }
 
     /**

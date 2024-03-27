@@ -93,7 +93,7 @@ public final class ByteUtil {
         }
 
         long sign = intValue >> 8 * size - 1;
-        return sign > 0L ? intValue - (long) (1 << 8 * size) : intValue;
+        return sign > 0L ? intValue - (long) (1L << 8 * size) : intValue;
     }
 
     public static int byte2Int(byte[] bytes, int size) {
@@ -181,7 +181,7 @@ public final class ByteUtil {
     }
 
     public static float byte2float(byte[] b, int index) {
-        int l = b[index + 0];
+        int l = b[index];
         l &= 0xFF;
         l = (int) ((long) l | (long) b[index + 1] << 8);
         l &= 0xFFFF;

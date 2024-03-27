@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * 校验经纬度
@@ -42,7 +43,7 @@ public class LonLatUtil {
             return "";
         }
         try {
-            return new BigDecimal(longValue).divide(new BigDecimal(1_000_000), 6, BigDecimal.ROUND_HALF_UP).toString();
+            return new BigDecimal(longValue).divide(new BigDecimal(1_000_000), 6, RoundingMode.HALF_UP).toString();
         } catch (Exception e) {
             return "";
         }
@@ -59,7 +60,7 @@ public class LonLatUtil {
             return null;
         }
         try {
-            return new BigDecimal(longValue).divide(new BigDecimal(1_000_000), 6, BigDecimal.ROUND_HALF_UP).doubleValue();
+            return new BigDecimal(longValue).divide(new BigDecimal(1_000_000), 6, RoundingMode.HALF_UP).doubleValue();
         } catch (Exception e) {
             return null;
         }

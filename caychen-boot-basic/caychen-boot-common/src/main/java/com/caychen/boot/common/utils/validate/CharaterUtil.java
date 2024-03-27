@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,9 +33,9 @@ public class CharaterUtil {
      */
     public static class EscapeUtil {
 
-        private static boolean usingAnsiMode = false;
+        private static final boolean usingAnsiMode = false;
 
-        private static CharsetEncoder charsetEncoder = Charset.forName(("Utf-8")).newEncoder();
+        private static final CharsetEncoder charsetEncoder = StandardCharsets.UTF_8.newEncoder();
 
         /**
          * sql转义字符串

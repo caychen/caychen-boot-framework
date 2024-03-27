@@ -14,8 +14,7 @@ public enum CheckRuleEnum {
 
     DEBUG("debug", "debug模式"),
 
-    CUSTOM("custom", "自定义")
-    ;
+    CUSTOM("custom", "自定义");
 
     private String code;
     private String desc;

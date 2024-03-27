@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: Caychen
@@ -25,7 +26,7 @@ public class AesEncryptUtil {
         //"算法/模式/补码方式"
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(sSrc.getBytes("utf-8"));
+        byte[] encrypted = cipher.doFinal(sSrc.getBytes(StandardCharsets.UTF_8));
         //此处使用BASE64做转码功能，同时能起到2次加密的作用。
         return new Base64().encodeToString(encrypted);
     }
@@ -38,7 +39,7 @@ public class AesEncryptUtil {
         byte[] encrypted = new Base64().decode(sSrc);
         try {
             byte[] original = cipher.doFinal(encrypted);
-            return new String(original, "utf-8");
+            return new String(original, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("AES解密失败：", e);
             return null;
@@ -81,7 +82,7 @@ public class AesEncryptUtil {
 
         byte[] decData = cipher.doFinal(encrypted);
 
-        return new String(decData, "utf-8");
+        return new String(decData, StandardCharsets.UTF_8);
     }
 
 }

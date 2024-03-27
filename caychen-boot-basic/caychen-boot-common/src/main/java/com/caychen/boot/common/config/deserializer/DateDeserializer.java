@@ -2,7 +2,6 @@ package com.caychen.boot.common.config.deserializer;
 
 import com.caychen.boot.common.utils.common.DateUtil;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +17,7 @@ import java.util.Date;
 public class DateDeserializer extends JsonDeserializer<Date> {
 
     @Override
-    public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         String dateString = p.getText();
 
         if (StringUtils.isNotBlank(dateString)) {

@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -31,9 +32,9 @@ public final class MD5 {
     /**
      * 默认的密码字符串组合，用来将字节转换成 16 进制表示的字符,apache校验下载的文件的正确性用的就是默认的这个组合
      */
-    protected static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6',
+    private static char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6',
             '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-    protected static MessageDigest messagedigest = null;
+    private static MessageDigest messagedigest = null;
 
     static {
         try {
@@ -130,11 +131,11 @@ public final class MD5 {
         return bufferToHex(messagedigest.digest());
     }
 
-    private static String bufferToHex(byte bytes[]) {
+    private static String bufferToHex(byte[] bytes) {
         return bufferToHex(bytes, 0, bytes.length);
     }
 
-    private static String bufferToHex(byte bytes[], int m, int n) {
+    private static String bufferToHex(byte[] bytes, int m, int n) {
         StringBuffer stringbuffer = new StringBuffer(2 * n);
         int k = m + n;
         for (int l = m; l < k; l++) {
@@ -199,10 +200,10 @@ public final class MD5 {
      */
     public static String MD5(String data) throws Exception {
         MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] array = md.digest(data.getBytes("UTF-8"));
+        byte[] array = md.digest(data.getBytes(StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         for (byte item : array) {
-            sb.append(Integer.toHexString((item & 0xFF) | 0x100).substring(1, 3));
+            sb.append(Integer.toHexString((item & 0xFF) | 0x100), 1, 3);
         }
         return sb.toString().toUpperCase();
     }
@@ -266,8 +267,8 @@ public final class MD5 {
     public static Object getFieldValue(String fieldName, Object o) throws Exception {
         String firstLetter = fieldName.substring(0, 1).toUpperCase();
         String getter = "get" + firstLetter + fieldName.substring(1);
-        Method method = o.getClass().getMethod(getter, new Class[]{});
-        Object value = method.invoke(o, new Object[]{});
+        Method method = o.getClass().getMethod(getter);
+        Object value = method.invoke(o);
         return value;
     }
 
@@ -287,7 +288,7 @@ public final class MD5 {
         }
         String sign = "";
         try {
-            sign = toHexValue(encryptMD5(string.getBytes(Charset.forName("utf-8"))));
+            sign = toHexValue(encryptMD5(string.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("md5 error");

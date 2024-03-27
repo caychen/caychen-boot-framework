@@ -14,10 +14,10 @@ public class BloomFilterUtil {
     /**
      * 初始化 62 进制数据，索引位置代表字符的数值，比如 A代表10，z代表61等
      */
-    private static String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static int scale = 62;
+    private static final String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final int scale = 62;
 
-    private static BloomFilter<Integer> filter =
+    private static final BloomFilter<Integer> filter =
             BloomFilter.create(
                     Funnels.integerFunnel(),
                     999999999,

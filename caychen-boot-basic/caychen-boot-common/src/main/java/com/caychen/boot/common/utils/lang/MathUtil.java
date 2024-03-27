@@ -3,6 +3,7 @@ package com.caychen.boot.common.utils.lang;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class MathUtil {
      * 四舍五入保留小数位
      */
     public static BigDecimal scale(double org, int newScale) {
-        return BigDecimal.valueOf(org).setScale(newScale, BigDecimal.ROUND_HALF_UP);
+        return BigDecimal.valueOf(org).setScale(newScale, RoundingMode.HALF_UP);
     }
 
     /**
@@ -27,7 +28,7 @@ public class MathUtil {
         if (org == null) {
             org = 0F;
         }
-        return BigDecimal.valueOf(org).setScale(newScale, BigDecimal.ROUND_HALF_UP);
+        return BigDecimal.valueOf(org).setScale(newScale, RoundingMode.HALF_UP);
     }
 
     /**
@@ -37,7 +38,7 @@ public class MathUtil {
         if (org == null) {
             org = BigDecimal.ZERO;
         }
-        return org.setScale(newScale, BigDecimal.ROUND_HALF_UP);
+        return org.setScale(newScale, RoundingMode.HALF_UP);
     }
 
     /**
@@ -47,14 +48,14 @@ public class MathUtil {
         if (StringUtils.isEmpty(org)) {
             org = "0";
         }
-        return BigDecimal.valueOf(Double.valueOf(org)).setScale(newScale, BigDecimal.ROUND_HALF_UP);
+        return BigDecimal.valueOf(Double.valueOf(org)).setScale(newScale, RoundingMode.HALF_UP);
     }
 
     /**
      * 四舍五入保留小数位
      */
     public static List<BigDecimal> scaleBigDecimalList(List<BigDecimal> b, int newScale) {
-        return b.stream().map(e -> e == null ? BigDecimal.ZERO : e.setScale(newScale, BigDecimal.ROUND_HALF_UP))
+        return b.stream().map(e -> e == null ? BigDecimal.ZERO : e.setScale(newScale, RoundingMode.HALF_UP))
                 .collect(Collectors.toList());
     }
 
