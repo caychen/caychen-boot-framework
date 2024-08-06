@@ -1,4 +1,4 @@
-package com.caychen.boot.common.annotations;
+package com.caychen.boot.web.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

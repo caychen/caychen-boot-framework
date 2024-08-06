@@ -1,4 +1,4 @@
-package com.caychen.boot.common.utils.common;
+package com.caychen.boot.common.utils.file;
 
 import com.github.junrar.Junrar;
 import com.github.junrar.exception.RarException;

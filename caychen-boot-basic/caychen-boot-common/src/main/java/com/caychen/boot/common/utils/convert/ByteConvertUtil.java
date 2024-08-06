@@ -5,7 +5,7 @@ package com.caychen.boot.common.utils.convert;
  * @Date: 2024/2/20 16:44
  * @Description:
  */
-public final class ByteUtil {
+public final class ByteConvertUtil {
     private static final byte[] HEX = "0123456789ABCDEF".getBytes();
 
     public static String bytesToHexString(byte[] bytes) {

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -38,7 +38,7 @@ public class SwaggerConfig {
 //                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
 
                 //指定在class上使用RestController注解的类
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Controller.class))
                 // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
                 .paths(PathSelectors.any())
                 .build();

@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author: Caychen
  * @Date: 2024/2/7 15:55
- * @Description:
+ * @Description:    简单的日志文件打印
+ *
  */
 @Slf4j
 public class ConsoleLogHandler implements LogHandler {

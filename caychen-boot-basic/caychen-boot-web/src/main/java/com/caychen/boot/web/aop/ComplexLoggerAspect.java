@@ -2,7 +2,7 @@ package com.caychen.boot.web.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.caychen.boot.common.annotations.NoLog;
+import com.caychen.boot.web.annotations.NoLog;
 import com.caychen.boot.common.constant.CommonConstant;
 import com.caychen.boot.common.enums.ErrorEnum;
 import com.caychen.boot.common.exception.BusinessException;
