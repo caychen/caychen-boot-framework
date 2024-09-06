@@ -89,6 +89,7 @@
         <zxing.version>3.5.2</zxing.version>
         <junrar.version>7.5.5</junrar.version>
         <alipay-sdk-java-version>4.38.200.ALL</alipay-sdk-java-version>
+        <commons-logging.version>1.3.4</commons-logging.version>
     </properties>
 
     <dependencyManagement>
@@ -530,6 +531,14 @@
                 <artifactId>alipay-sdk-java</artifactId>
                 <version>${alipay-sdk-java-version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

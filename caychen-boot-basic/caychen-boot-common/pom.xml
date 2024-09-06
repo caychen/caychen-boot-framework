@@ -197,6 +197,11 @@
             <groupId>com.github.junrar</groupId>
             <artifactId>junrar</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
