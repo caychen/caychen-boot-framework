@@ -232,7 +232,11 @@ public class HttpClientUtils {
                 client = HttpClientUtils.client;
                 res = client.execute(post);
             }
-            return IOUtils.toString(res.getEntity().getContent(), StandardCharsets.UTF_8);
+            if (res.getEntity() != null) {
+                return IOUtils.toString(res.getEntity().getContent(), StandardCharsets.UTF_8);
+            } else {
+                return null;
+            }
         } finally {
             post.releaseConnection();
             if (url.startsWith(HttpConstant.HTTPS)
